@@ -6,197 +6,130 @@
   <title>Norva Exports</title>
   <style>
     :root {
-      --bg: #050608;
-      --text: #f4f5f6;
-      --muted: #aeb3bb;
-      --red: #b90018;
-      --line: rgba(255, 255, 255, 0.14);
-      --mint: #d4e2da;
+      --bg: #060709;
+      --text: #f5f5f6;
+      --muted: #aeb4bd;
+      --line: rgba(255, 255, 255, 0.16);
+      --red: #bb0018;
+      --mint: #d2e2d9;
+      --radius: 16px;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
       font-family: Inter, "Segoe UI", Roboto, sans-serif;
-      background: var(--bg);
+      background: radial-gradient(circle at 50% -20%, #15171c, #060709 45%);
       color: var(--text);
       overflow-x: hidden;
+      line-height: 1.35;
     }
-
-    .container { width: min(1280px, 94vw); margin-inline: auto; }
+    img { display: block; width: 100%; height: 100%; object-fit: cover; }
+    .container { width: min(1240px, 94vw); margin-inline: auto; }
 
     .topbar {
       position: sticky;
       top: 0;
-      z-index: 50;
-      background: linear-gradient(98deg, #7f000e, var(--red) 55%, #ef2f3b);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+      z-index: 100;
+      background: linear-gradient(100deg, #79000d, var(--red) 55%, #ee2e3a);
+      border-bottom: 1px solid rgba(255,255,255,.22);
     }
-
     .top-inner {
-      height: 74px;
+      min-height: 74px;
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 1rem;
     }
+    .brand { display: flex; align-items: center; gap: .6rem; font-size: clamp(1.2rem, 1.5vw, 2rem); font-weight: 700; }
+    .logo { width: clamp(30px, 2.8vw, 40px); aspect-ratio: 1; border-radius: 8px; background: #fff; position: relative; }
+    .logo::before { content: ""; position: absolute; inset: 24%; transform: rotate(45deg); background: #b10715; }
 
-    .brand { display: flex; align-items: center; gap: .65rem; font-weight: 700; font-size: 2rem; }
-    .logo {
-      width: 40px;
-      aspect-ratio: 1;
-      border-radius: 8px;
-      background: #fff;
-      position: relative;
-    }
-    .logo::before { content: ""; position: absolute; inset: 24%; transform: rotate(45deg); background: #b20714; }
+    nav ul { list-style: none; display: flex; gap: clamp(.8rem, 2vw, 2rem); }
+    nav a { text-decoration: none; color: #fff; font-weight: 600; font-size: clamp(.9rem, 1vw, 1.05rem); }
+    .quote { border: 0; background: #fff; color: #111; font-weight: 700; border-radius: 14px; padding: .75rem 1.35rem; }
 
-    nav ul { list-style: none; display: flex; gap: 1.8rem; font-weight: 600; }
-    nav a { color: #fff; text-decoration: none; }
-    .quote { border: 0; border-radius: 14px; padding: .8rem 1.55rem; background: #fff; color: #111; font-weight: 700; }
+    section { padding: clamp(2.2rem, 5vw, 5rem) 0; }
 
-    section { padding: clamp(2.5rem, 6vw, 6rem) 0; }
-
-    .hero { padding-top: 2.5rem; }
-    .hero-grid {
-      display: grid;
-      grid-template-columns: 1fr 1.18fr;
-      gap: 1.2rem;
-      align-items: center;
-    }
+    .hero { min-height: min(95vh, 980px); display: grid; align-items: center; }
+    .hero-grid { display: grid; grid-template-columns: 1fr 1.12fr; gap: clamp(.8rem, 1.4vw, 1.2rem); align-items: center; }
     .hero h1 {
-      font-size: clamp(3rem, 6.2vw, 7rem);
+      font-size: clamp(2.6rem, 7.2vw, 8rem);
+      letter-spacing: -.05em;
       line-height: .92;
-      letter-spacing: -.045em;
       max-width: 8.4ch;
     }
     .hero p {
       margin-top: 1.2rem;
       color: var(--muted);
-      font-size: clamp(1.05rem, 1.5vw, 1.75rem);
-      line-height: 1.45;
+      font-size: clamp(1rem, 1.45vw, 1.55rem);
       max-width: 35ch;
     }
     .hero-actions { display: flex; gap: .75rem; margin-top: 1.7rem; }
-    .btn-red, .btn-dark {
-      border-radius: 14px;
-      padding: .9rem 1.45rem;
-      font-size: 1.2rem;
-      font-weight: 700;
-      border: 1px solid var(--line);
-    }
-    .btn-red { border-color: transparent; background: var(--red); color: #fff; }
-    .btn-dark { background: transparent; color: #fff; }
+    .btn { border-radius: 14px; padding: .86rem 1.45rem; font-size: clamp(.95rem, 1.15vw, 1.2rem); font-weight: 700; border: 1px solid var(--line); }
+    .btn.red { border-color: transparent; background: var(--red); color: #fff; }
+    .btn.dark { background: transparent; color: #fff; }
+    .hero-media { border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; min-height: min(72vh, 720px); position: relative; }
+    .hero-media::after { content:""; position:absolute; inset:0; background:linear-gradient(to right, rgba(0,0,0,.56), rgba(0,0,0,.12) 35%, rgba(0,0,0,.44)); }
 
-    .image-shell {
-      min-height: min(73vh, 760px);
-      border-radius: 18px;
-      overflow: hidden;
-      border: 1px solid var(--line);
-      background: #121212;
-      position: relative;
-    }
-    .image-shell img { width: 100%; height: 100%; object-fit: cover; display: block; }
-    .image-shell::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(to right, rgba(0,0,0,.54), rgba(0,0,0,.08) 32%, rgba(0,0,0,.42));
-    }
+    .products-head { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(1rem, 2vw, 2.2rem); margin-bottom: 1.4rem; }
+    .products-head h2 { font-size: clamp(2.15rem, 5.6vw, 5.2rem); line-height: .94; letter-spacing: -.04em; max-width: 8.5ch; }
+    .products-head p { color: var(--muted); font-size: clamp(1rem, 1.4vw, 1.4rem); max-width: 40ch; }
 
-    .products-head {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 2rem;
-      align-items: start;
-      margin-bottom: 1.7rem;
-    }
-    .products-head h2 {
-      font-size: clamp(2.45rem, 5.5vw, 5.5rem);
-      line-height: .94;
-      letter-spacing: -.04em;
-      max-width: 8ch;
-    }
-    .products-head p { color: var(--muted); font-size: clamp(1rem, 1.55vw, 1.65rem); line-height: 1.45; }
-
-    .tabs { display: flex; flex-wrap: wrap; gap: .75rem; margin-bottom: 1.15rem; }
-    .tab { border: 1px solid var(--line); border-radius: 999px; padding: .58rem 1rem; font-size: .98rem; font-weight: 700; }
+    .tabs { display: flex; gap: .7rem; flex-wrap: wrap; margin-bottom: 1rem; }
+    .tab { border: 1px solid var(--line); border-radius: 999px; padding: .52rem .95rem; font-size: .92rem; font-weight: 700; }
     .tab.active { background: var(--red); border-color: transparent; }
 
-    .gallery { display: grid; grid-template-columns: 1fr 2fr; gap: .9rem; }
-    .gallery img, .gallery-card { border-radius: 14px; overflow: hidden; border: 1px solid var(--line); background: #111; }
-    .gallery img { width: 100%; height: 100%; object-fit: cover; display: block; }
-    .gallery-right { display: grid; grid-template-rows: 1fr 1fr; gap: .9rem; }
-    .gallery-bottom { display: grid; grid-template-columns: 1fr 1fr; gap: .9rem; }
+    .gallery { display: grid; grid-template-columns: .92fr 1.6fr; gap: .75rem; }
+    .gallery-card { border-radius: var(--radius); overflow: hidden; border: 1px solid var(--line); min-height: 260px; background: #0f1012; }
+    .gallery-right { display: grid; grid-template-rows: 1fr .72fr; gap: .75rem; }
+    .gallery-bottom { display: grid; grid-template-columns: 1fr 1fr; gap: .75rem; }
 
-    .category-title { text-align: center; text-transform: uppercase; letter-spacing: .06em; color: #a3a9b1; font-size: .92rem; margin-bottom: .9rem; }
-    .quality-title {
-      text-align: center;
-      font-size: clamp(2.45rem, 5.8vw, 5.2rem);
-      line-height: .95;
-      letter-spacing: -.04em;
-      margin: 0 auto 2.4rem;
-      max-width: 14ch;
-    }
+    .category-title { text-align: center; text-transform: uppercase; font-size: .88rem; letter-spacing: .08em; color: #9da3ac; margin-bottom: .9rem; }
+    .quality-title { font-size: clamp(2.1rem, 5.6vw, 5rem); line-height: .94; letter-spacing: -.04em; text-align: center; max-width: 13.5ch; margin: 0 auto 2.1rem; }
 
-    .feature-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.8rem; }
+    .feature-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.6rem 1.8rem; }
     .feature { text-align: center; }
-    .icon {
-      width: 56px; aspect-ratio: 1; margin: 0 auto .65rem;
-      border-radius: 12px;
-      display: grid; place-items: center;
-      background: rgba(186, 0, 24, .18);
-      border: 1px solid rgba(255, 81, 105, .26);
-      color: #ff4a66;
-      font-size: 1.55rem;
-    }
-    .feature h3 { font-size: clamp(1.25rem, 2.1vw, 2rem); margin-bottom: .45rem; }
-    .feature p { color: var(--muted); font-size: clamp(.96rem, 1.2vw, 1.2rem); line-height: 1.45; }
+    .icon { width: 52px; aspect-ratio: 1; margin: 0 auto .7rem; border-radius: 12px; display: grid; place-items: center; color:#ff4a66; background: rgba(185,0,24,.18); border:1px solid rgba(255,81,105,.25); font-size: 1.45rem; }
+    .feature h3 { font-size: clamp(1.2rem, 1.8vw, 1.9rem); margin-bottom: .4rem; }
+    .feature p { color: var(--muted); font-size: clamp(.92rem, 1.08vw, 1.1rem); }
 
-    .center-cta { text-align: center; margin: 2rem 0 2.3rem; }
-    .stats-kicker { text-transform: uppercase; letter-spacing: .06em; color: #a3a8b0; font-size: .92rem; margin-bottom: .65rem; }
-    .stats-title { font-size: clamp(2.45rem, 6vw, 5.4rem); line-height: .95; letter-spacing: -.04em; margin-bottom: 1rem; }
-    .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.2rem; }
-    .stats p { color: var(--muted); font-size: clamp(.95rem, 1.2vw, 1.15rem); }
-    .stats strong { display: block; font-weight: 500; line-height: 1; font-size: clamp(3rem, 7vw, 5.6rem); }
+    .center { text-align: center; margin: 2rem 0 2.2rem; }
+    .kicker { text-transform: uppercase; letter-spacing: .08em; color: #9da3ac; font-size: .88rem; }
+    .stats-title { font-size: clamp(2.2rem, 5.9vw, 5.2rem); line-height: .94; letter-spacing: -.04em; margin: .6rem 0 1rem; }
+    .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+    .stats p { color: var(--muted); font-size: clamp(.9rem, 1.1vw, 1.1rem); }
+    .stats strong { display: block; font-size: clamp(2.8rem, 6.5vw, 5.4rem); font-weight: 500; line-height: 1.02; }
 
     .contact-dark { text-align: center; }
-    .contact-kicker { text-transform: uppercase; letter-spacing: .08em; color: #a3a8b0; font-size: .92rem; }
-    .contact-title {
-      margin: .75rem 0;
-      font-size: clamp(2.5rem, 6.8vw, 6rem);
-      line-height: .95;
-      letter-spacing: -.04em;
-    }
-    .contact-sub { color: var(--muted); font-size: clamp(1rem, 1.4vw, 1.5rem); margin-bottom: 2rem; }
-    .contact-cards { max-width: 980px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 1.8rem; }
-    .contact-card { text-align: center; padding: .8rem; }
-    .contact-card h4 { font-size: clamp(1.45rem, 2.2vw, 2.1rem); margin: .65rem 0 .3rem; }
-    .contact-card p { color: var(--muted); font-size: clamp(1rem, 1.25vw, 1.3rem); }
-    .contact-card a { margin-top: .55rem; display: inline-block; color: #fff; font-size: clamp(1.05rem, 1.7vw, 1.9rem); }
+    .contact-title { font-size: clamp(2.3rem, 6.2vw, 5.8rem); line-height: .94; letter-spacing: -.04em; margin: .7rem 0; }
+    .contact-sub { color: var(--muted); font-size: clamp(1rem, 1.25vw, 1.35rem); margin-bottom: 1.8rem; }
+    .contact-cards { max-width: 940px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; }
+    .contact-card { padding: .5rem .9rem; }
+    .contact-card h4 { font-size: clamp(1.3rem, 2vw, 2rem); margin: .55rem 0 .35rem; }
+    .contact-card p { color: var(--muted); font-size: clamp(.95rem, 1.1vw, 1.2rem); }
+    .contact-card a { display: inline-block; margin-top: .55rem; color: #fff; font-size: clamp(1rem, 1.5vw, 1.6rem); }
 
-    .footer-mint { background: var(--mint); color: #12241b; padding: 3rem 0; }
-    .mint-grid { display: grid; grid-template-columns: 1.35fr 1fr 1fr; gap: 2rem; }
-    .mint-title { font-size: clamp(2rem, 4vw, 4rem); line-height: 1.06; max-width: 14ch; margin-bottom: 1.8rem; }
-    .mint-contact { font-size: clamp(1.1rem, 1.8vw, 1.95rem); line-height: 1.55; }
-    .mint-links { display: grid; gap: 1rem; font-size: clamp(1.45rem, 2.4vw, 3rem); font-weight: 700; }
-    .mint-bottom { margin-top: 2.5rem; display: flex; justify-content: space-between; gap: 1rem; font-size: clamp(1rem, 1.4vw, 1.8rem); }
+    .footer-mint { background: var(--mint); color: #11241b; margin-top: 1.4rem; }
+    .footer-wrap { padding: clamp(2rem, 5vw, 3.2rem) 0; }
+    .mint-grid { display: grid; grid-template-columns: 1.35fr 1fr 1fr; gap: 1.4rem; }
+    .mint-title { font-size: clamp(2rem, 3.9vw, 3.8rem); line-height: 1.06; max-width: 14ch; margin-bottom: 1.5rem; }
+    .mint-contact { font-size: clamp(1rem, 1.55vw, 1.8rem); line-height: 1.5; }
+    .mint-links { display: grid; gap: .8rem; font-size: clamp(1.35rem, 2.1vw, 2.6rem); font-weight: 700; }
+    .mint-bottom { margin-top: 2rem; display: flex; justify-content: space-between; gap: 1rem; font-size: clamp(.95rem, 1.2vw, 1.4rem); }
 
-    @media (max-width: 1100px) {
+    @media (max-width: 1024px) {
       nav { display: none; }
+      .hero { min-height: auto; }
       .hero-grid, .products-head, .gallery, .contact-cards, .mint-grid { grid-template-columns: 1fr; }
       .gallery-right, .gallery-bottom { grid-template-columns: 1fr; grid-template-rows: auto; }
       .feature-grid, .stats { grid-template-columns: 1fr; }
-      .image-shell { min-height: 52vh; }
+      .hero-media { min-height: 50vh; }
     }
 
-    @media (max-width: 700px) {
-      .top-inner { height: 66px; }
-      .brand { font-size: 1.4rem; }
-      .logo { width: 32px; }
-      .quote { padding: .65rem 1rem; border-radius: 12px; }
+    @media (max-width: 640px) {
+      .top-inner { min-height: 64px; }
+      .quote { padding: .62rem .94rem; font-size: .9rem; }
       .hero-actions { flex-wrap: wrap; }
-      .btn-red, .btn-dark { font-size: 1rem; }
-      .section { padding: 2rem 0; }
       .mint-bottom { flex-direction: column; align-items: flex-start; }
     }
   </style>
@@ -224,11 +157,11 @@
           <h1>Connecting global markets, delivering quality</h1>
           <p>Specialists in food and construction exports. Reliable sourcing, strict standards, and on-time delivery for international buyers.</p>
           <div class="hero-actions">
-            <button class="btn-red">Get quote</button>
-            <button class="btn-dark">Contact</button>
+            <button class="btn red">Get quote</button>
+            <button class="btn dark">Contact</button>
           </div>
         </div>
-        <div class="image-shell"><img src="images/home.jpg" alt="Home hero image" /></div>
+        <div class="hero-media"><img src="images/home.jpg" alt="Home hero image" /></div>
       </div>
     </section>
 
@@ -246,12 +179,12 @@
         </div>
 
         <div class="gallery">
-          <img src="images/products.jpg" alt="Product category image" />
+          <div class="gallery-card"><img src="images/products.jpg" alt="Product category image" /></div>
           <div class="gallery-right">
-            <img src="images/about.jpg" alt="Construction materials" />
+            <div class="gallery-card"><img src="images/about.jpg" alt="Construction materials" /></div>
             <div class="gallery-bottom">
-              <img src="images/contact.jpg" alt="Food market" />
-              <div class="gallery-card" style="display:grid;place-items:center;color:var(--muted);font-size:1.15rem;">Add 4th image if available</div>
+              <div class="gallery-card"><img src="images/contact.jpg" alt="Food market" /></div>
+              <div class="gallery-card" style="display:grid;place-items:center;color:var(--muted);font-size:1.1rem;">Add 4th image if available</div>
             </div>
           </div>
         </div>
@@ -272,9 +205,9 @@
           <article class="feature"><div class="icon">✧</div><h3>Natural stones</h3><p>Granite, marble, and tiles. Durable, high-grade materials for all uses.</p></article>
         </div>
 
-        <div class="center-cta"><button class="btn-red">Request quote</button></div>
+        <div class="center"><button class="btn red">Request quote</button></div>
 
-        <p class="stats-kicker">Performance at a glance</p>
+        <p class="kicker">Performance at a glance</p>
         <h2 class="stats-title">Global trade. Trusted delivery.</h2>
         <div class="stats">
           <div><p>Markets served worldwide</p><strong>40+</strong></div>
@@ -286,7 +219,7 @@
 
     <section id="contact" class="contact-dark">
       <div class="container">
-        <p class="contact-kicker">Contact</p>
+        <p class="kicker">Contact</p>
         <h2 class="contact-title">Let’s talk global trade</h2>
         <p class="contact-sub">Request quotes or product details. Our team responds fast.</p>
 
@@ -299,7 +232,7 @@
   </main>
 
   <footer class="footer-mint">
-    <div class="container">
+    <div class="container footer-wrap">
       <div class="mint-grid">
         <div>
           <h3 class="mint-title">Bridging global trade, delivered right Contact us</h3>
