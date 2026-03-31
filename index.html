@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Norva Exports - Responsive Multi Page</title>
+  <style>
+    :root {
+      --bg: #050505;
+      --text: #f5f5f5;
+      --muted: #b9bec8;
+      --line: rgba(255,255,255,0.14);
+      --brand-a: #760009;
+      --brand-b: #c4001a;
+      --brand-c: #ef3240;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: Inter, "Segoe UI", Roboto, sans-serif; color: var(--text); background: var(--bg); overflow-x: clip; }
+
+    .topbar {
+      position: fixed; inset: 0 0 auto 0; z-index: 100;
+      background: linear-gradient(100deg, var(--brand-a), var(--brand-b) 55%, var(--brand-c));
+      border-bottom: 1px solid rgba(255,255,255,.2);
+      backdrop-filter: blur(6px);
+    }
+    .container { width: min(1320px, 94vw); margin-inline: auto; }
+    .nav-wrap { min-height: 72px; display: flex; align-items: center; justify-content: space-between; gap: .8rem; }
+    .brand { display: flex; align-items: center; gap: .6rem; font-weight: 700; white-space: nowrap; }
+    .logo { width: 30px; aspect-ratio: 1; border-radius: 8px; background: #fff; position: relative; }
+    .logo::before { content: ""; position: absolute; inset: 24%; transform: rotate(45deg); background: #bb0817; }
+    nav ul { list-style: none; display: flex; gap: clamp(.8rem, 2vw, 2rem); }
+    nav a { color: #fff; text-decoration: none; font-size: .95rem; opacity: .96; }
+    .cta { border: 0; border-radius: 10px; padding: .65rem 1rem; font-weight: 600; background: #fff; color: #111; }
+
+    main { margin-top: 72px; }
+
+    .section {
+      min-height: 100svh;
+      width: 100vw;
+      display: flex;
+      align-items: center;
+      padding-block: clamp(1rem, 3vw, 2.2rem);
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity .65s ease, transform .65s ease;
+    }
+    .section.visible { opacity: 1; transform: translateY(0); }
+
+    .hero-layout,
+    .split,
+    .contact-grid { display: grid; gap: 1rem; width: 100%; }
+    .hero-layout { grid-template-columns: 1.05fr 1fr; }
+    .split, .contact-grid { grid-template-columns: 1fr 1fr; }
+
+    h1 { font-size: clamp(2.2rem, 8vw, 6.8rem); line-height: .95; letter-spacing: -.045em; max-width: 10ch; }
+    h2 { font-size: clamp(1.5rem, 3.1vw, 2.9rem); margin-bottom: .8rem; }
+    .kicker { color: #5ab1ff; margin-bottom: .5rem; font-size: .92rem; }
+    .sub { color: var(--muted); max-width: 60ch; margin-top: .9rem; }
+
+    .panel {
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: linear-gradient(160deg, rgba(255,255,255,.07), rgba(255,255,255,.02));
+      padding: 1rem;
+    }
+
+    .media {
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      overflow: hidden;
+      position: relative;
+      background: linear-gradient(135deg, #0d0d0d, #141414);
+      min-height: 50vh;
+      isolation: isolate;
+    }
+    .media.tall { min-height: min(74vh, 760px); }
+    .media img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .media::after {
+      content: ""; position: absolute; inset: 0; pointer-events: none;
+      background: linear-gradient(to right, rgba(0,0,0,.5), rgba(0,0,0,.12) 40%, rgba(0,0,0,.45));
+    }
+    .overlay-frame {
+      position: absolute; left: 7%; top: 9%; width: 48%; height: 78%; z-index: 2;
+      border: 1px solid rgba(70,166,255,.55);
+    }
+
+    .cards { margin-top: .9rem; display: grid; grid-template-columns: repeat(2, minmax(190px, 1fr)); gap: .9rem; }
+    .img-card {
+      min-height: 200px; border-radius: 14px; overflow: hidden; position: relative;
+      border: 1px solid var(--line); background: linear-gradient(135deg, #101010, #1a1a1a);
+    }
+    .img-card .label {
+      position: absolute; left: .65rem; bottom: .65rem; z-index: 2;
+      padding: .32rem .55rem; font-size: .84rem; border-radius: 8px;
+      border: 1px solid rgba(255,255,255,.26); background: rgba(0,0,0,.58);
+    }
+
+    .timeline { margin-top: .8rem; border-left: 1px solid rgba(255,255,255,.24); padding-left: .85rem; display: grid; gap: .72rem; }
+    .timeline p { color: var(--muted); }
+
+    label { display: block; font-size: .92rem; margin-top: .6rem; }
+    input, textarea {
+      width: 100%; margin-top: .42rem; border-radius: 10px; padding: .74rem;
+      border: 1px solid rgba(255,255,255,.23); background: #0d0d0d; color: #fff;
+    }
+    textarea { min-height: 130px; resize: vertical; }
+    .btn { margin-top: .9rem; padding: .74rem 1rem; border: 0; border-radius: 10px; font-weight: 700; color: #fff; background: linear-gradient(90deg, #ea1a2b, #ff4f5d); }
+
+    footer { border-top: 1px solid rgba(255,255,255,.12); color: #9ea4af; text-align: center; padding: 2rem 0 2.4rem; }
+
+    @media (max-width: 1120px) {
+      .hero-layout { grid-template-columns: 1fr; }
+      .overlay-frame { display: none; }
+      .media.tall { min-height: 56vh; }
+    }
+    @media (max-width: 980px) {
+      nav { display: none; }
+      .split, .contact-grid { grid-template-columns: 1fr; }
+      .cards { grid-template-columns: 1fr; }
+      .container { width: 95vw; }
+      .section { min-height: auto; padding-block: 2.8rem; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="container nav-wrap">
+      <div class="brand"><span class="logo" aria-hidden="true"></span>Norva Exports</div>
+      <nav aria-label="Primary">
+        <ul>
+          <li><a href="#home">Home</a></li>
+          <li><a href="#products">Products</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#workflow">Workflow</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+      <button class="cta">Get Quote</button>
+    </div>
+  </header>
+
+  <main>
+    <section class="section visible" id="home">
+      <div class="container hero-layout">
+        <div>
+          <p class="kicker">H1 heading_hero</p>
+          <h1>Connecting global markets, delivering quality</h1>
+          <p class="sub">This version is fully responsive and full-width. Image sources are now centralized in JS so mapping to your pushed filenames is quick.</p>
+        </div>
+        <figure class="media tall">
+          <img data-img="hero" alt="Hero shelf image" />
+          <div class="overlay-frame"></div>
+        </figure>
+      </div>
+    </section>
+
+    <section class="section" id="products">
+      <div class="container split">
+        <article class="panel">
+          <h2>Product Categories</h2>
+          <p class="sub">Replace or extend these with your exact asset names.</p>
+          <div class="cards">
+            <figure class="img-card"><img data-img="coffee" alt="Coffee products" /><span class="label">Specialty Coffee</span></figure>
+            <figure class="img-card"><img data-img="spices" alt="Spices products" /><span class="label">Spices & Herbs</span></figure>
+            <figure class="img-card"><img data-img="nuts" alt="Dry fruits products" /><span class="label">Dry Fruits</span></figure>
+            <figure class="img-card"><img data-img="custom" alt="Custom sourcing" /><span class="label">Custom Sourcing</span></figure>
+          </div>
+        </article>
+        <article class="panel">
+          <h2>Market Reach</h2>
+          <div class="img-card" style="min-height: 420px; margin-top: .9rem;">
+            <img data-img="map" alt="Global market map" />
+            <span class="label">42+ Countries served</span>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="about">
+      <div class="container split">
+        <article class="panel">
+          <h2>About Norva</h2>
+          <p class="sub">This section is ready for your brand/team imagery.</p>
+          <div class="img-card" style="min-height: 380px; margin-top: .9rem;">
+            <img data-img="about" alt="About team image" />
+            <span class="label">Trusted export partner</span>
+          </div>
+        </article>
+        <article class="panel">
+          <h2>Why Buyers Choose Us</h2>
+          <div class="timeline">
+            <div><strong>01 — Verified sourcing</strong><p>Factory audit and quality checks.</p></div>
+            <div><strong>02 — Transparent pricing</strong><p>Clear costing from origin to destination.</p></div>
+            <div><strong>03 — Global logistics</strong><p>Reliable shipping with live updates.</p></div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="workflow">
+      <div class="container split">
+        <article class="panel">
+          <h2>Workflow</h2>
+          <div class="timeline">
+            <div><strong>Step 1: Requirement</strong><p>Finalize specs and destination.</p></div>
+            <div><strong>Step 2: Sampling</strong><p>Approve product and packaging samples.</p></div>
+            <div><strong>Step 3: Production</strong><p>Batch checks and shipment prep.</p></div>
+            <div><strong>Step 4: Dispatch</strong><p>Customs docs and transport tracking.</p></div>
+          </div>
+        </article>
+        <figure class="img-card" style="min-height: 500px;">
+          <img data-img="workflow" alt="Workflow image" />
+          <span class="label">Export lifecycle</span>
+        </figure>
+      </div>
+    </section>
+
+    <section class="section" id="contact">
+      <div class="container panel">
+        <h2>Contact / Quote</h2>
+        <div class="contact-grid">
+          <div>
+            <label>Name<input type="text" placeholder="Your name" /></label>
+            <label>Company<input type="text" placeholder="Company" /></label>
+            <label>Email<input type="email" placeholder="you@company.com" /></label>
+          </div>
+          <div>
+            <label>Message<textarea placeholder="Product details, quantity, destination"></textarea></label>
+          </div>
+        </div>
+        <button class="btn">Submit Inquiry</button>
+      </div>
+    </section>
+  </main>
+
+  <footer>© 2026 Norva Exports · Responsive concept with mapped images.</footer>
+
+  <script>
+    const imageMap = {
+      hero: 'images/hero-shelf.jpg',
+      coffee: 'images/product-coffee.jpg',
+      spices: 'images/product-spices.jpg',
+      nuts: 'images/product-nuts.jpg',
+      custom: 'images/product-custom.jpg',
+      map: 'images/market-map.jpg',
+      about: 'images/about-team.jpg',
+      workflow: 'images/workflow.jpg'
+    };
+
+    document.querySelectorAll('img[data-img]').forEach((img) => {
+      const key = img.dataset.img;
+      img.src = imageMap[key] || '';
+      img.addEventListener('error', () => {
+        img.style.opacity = '0';
+        img.parentElement.style.background = 'linear-gradient(135deg,#151515,#222)';
+      }, { once: true });
+    });
+
+    const sections = document.querySelectorAll('.section');
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) entry.target.classList.add('visible');
+      });
+    }, { threshold: 0.2 });
+    sections.forEach((sec) => io.observe(sec));
+  </script>
+</body>
+</html>
