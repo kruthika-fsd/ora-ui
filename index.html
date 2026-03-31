@@ -3,261 +3,316 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Norva Exports - Responsive Multi Page</title>
+  <title>Norva Exports</title>
   <style>
     :root {
-      --bg: #050505;
-      --text: #f5f5f5;
-      --muted: #b9bec8;
-      --line: rgba(255,255,255,0.14);
-      --brand-a: #760009;
-      --brand-b: #c4001a;
-      --brand-c: #ef3240;
+      --bg: #050608;
+      --text: #f4f5f6;
+      --muted: #aeb3bb;
+      --red: #b90018;
+      --line: rgba(255, 255, 255, 0.14);
+      --mint: #d4e2da;
     }
+
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
-    body { font-family: Inter, "Segoe UI", Roboto, sans-serif; color: var(--text); background: var(--bg); overflow-x: clip; }
+    body {
+      font-family: Inter, "Segoe UI", Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      overflow-x: hidden;
+    }
+
+    .container { width: min(1280px, 94vw); margin-inline: auto; }
 
     .topbar {
-      position: fixed; inset: 0 0 auto 0; z-index: 100;
-      background: linear-gradient(100deg, var(--brand-a), var(--brand-b) 55%, var(--brand-c));
-      border-bottom: 1px solid rgba(255,255,255,.2);
-      backdrop-filter: blur(6px);
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: linear-gradient(98deg, #7f000e, var(--red) 55%, #ef2f3b);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.2);
     }
-    .container { width: min(1320px, 94vw); margin-inline: auto; }
-    .nav-wrap { min-height: 72px; display: flex; align-items: center; justify-content: space-between; gap: .8rem; }
-    .brand { display: flex; align-items: center; gap: .6rem; font-weight: 700; white-space: nowrap; }
-    .logo { width: 30px; aspect-ratio: 1; border-radius: 8px; background: #fff; position: relative; }
-    .logo::before { content: ""; position: absolute; inset: 24%; transform: rotate(45deg); background: #bb0817; }
-    nav ul { list-style: none; display: flex; gap: clamp(.8rem, 2vw, 2rem); }
-    nav a { color: #fff; text-decoration: none; font-size: .95rem; opacity: .96; }
-    .cta { border: 0; border-radius: 10px; padding: .65rem 1rem; font-weight: 600; background: #fff; color: #111; }
 
-    main { margin-top: 72px; }
-
-    .section {
-      min-height: 100svh;
-      width: 100vw;
+    .top-inner {
+      height: 74px;
       display: flex;
       align-items: center;
-      padding-block: clamp(1rem, 3vw, 2.2rem);
-      opacity: 0;
-      transform: translateY(24px);
-      transition: opacity .65s ease, transform .65s ease;
-    }
-    .section.visible { opacity: 1; transform: translateY(0); }
-
-    .hero-layout,
-    .split,
-    .contact-grid { display: grid; gap: 1rem; width: 100%; }
-    .hero-layout { grid-template-columns: 1.05fr 1fr; }
-    .split, .contact-grid { grid-template-columns: 1fr 1fr; }
-
-    h1 { font-size: clamp(2.2rem, 8vw, 6.8rem); line-height: .95; letter-spacing: -.045em; max-width: 10ch; }
-    h2 { font-size: clamp(1.5rem, 3.1vw, 2.9rem); margin-bottom: .8rem; }
-    .kicker { color: #5ab1ff; margin-bottom: .5rem; font-size: .92rem; }
-    .sub { color: var(--muted); max-width: 60ch; margin-top: .9rem; }
-
-    .panel {
-      border: 1px solid var(--line);
-      border-radius: 18px;
-      background: linear-gradient(160deg, rgba(255,255,255,.07), rgba(255,255,255,.02));
-      padding: 1rem;
+      justify-content: space-between;
+      gap: 1rem;
     }
 
-    .media {
-      border: 1px solid var(--line);
-      border-radius: 22px;
-      overflow: hidden;
+    .brand { display: flex; align-items: center; gap: .65rem; font-weight: 700; font-size: 2rem; }
+    .logo {
+      width: 40px;
+      aspect-ratio: 1;
+      border-radius: 8px;
+      background: #fff;
       position: relative;
-      background: linear-gradient(135deg, #0d0d0d, #141414);
-      min-height: 50vh;
-      isolation: isolate;
     }
-    .media.tall { min-height: min(74vh, 760px); }
-    .media img { width: 100%; height: 100%; object-fit: cover; display: block; }
-    .media::after {
-      content: ""; position: absolute; inset: 0; pointer-events: none;
-      background: linear-gradient(to right, rgba(0,0,0,.5), rgba(0,0,0,.12) 40%, rgba(0,0,0,.45));
-    }
-   
+    .logo::before { content: ""; position: absolute; inset: 24%; transform: rotate(45deg); background: #b20714; }
 
-    .cards { margin-top: .9rem; display: grid; grid-template-columns: repeat(2, minmax(190px, 1fr)); gap: .9rem; }
-    .img-card {
-      min-height: 200px; border-radius: 14px; overflow: hidden; position: relative;
-      border: 1px solid var(--line); background: linear-gradient(135deg, #101010, #1a1a1a);
+    nav ul { list-style: none; display: flex; gap: 1.8rem; font-weight: 600; }
+    nav a { color: #fff; text-decoration: none; }
+    .quote { border: 0; border-radius: 14px; padding: .8rem 1.55rem; background: #fff; color: #111; font-weight: 700; }
+
+    section { padding: clamp(2.5rem, 6vw, 6rem) 0; }
+
+    .hero { padding-top: 2.5rem; }
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.18fr;
+      gap: 1.2rem;
+      align-items: center;
     }
-    .img-card .label {
-      position: absolute; left: .65rem; bottom: .65rem; z-index: 2;
-      padding: .32rem .55rem; font-size: .84rem; border-radius: 8px;
-      border: 1px solid rgba(255,255,255,.26); background: rgba(0,0,0,.58);
+    .hero h1 {
+      font-size: clamp(3rem, 6.2vw, 7rem);
+      line-height: .92;
+      letter-spacing: -.045em;
+      max-width: 8.4ch;
+    }
+    .hero p {
+      margin-top: 1.2rem;
+      color: var(--muted);
+      font-size: clamp(1.05rem, 1.5vw, 1.75rem);
+      line-height: 1.45;
+      max-width: 35ch;
+    }
+    .hero-actions { display: flex; gap: .75rem; margin-top: 1.7rem; }
+    .btn-red, .btn-dark {
+      border-radius: 14px;
+      padding: .9rem 1.45rem;
+      font-size: 1.2rem;
+      font-weight: 700;
+      border: 1px solid var(--line);
+    }
+    .btn-red { border-color: transparent; background: var(--red); color: #fff; }
+    .btn-dark { background: transparent; color: #fff; }
+
+    .image-shell {
+      min-height: min(73vh, 760px);
+      border-radius: 18px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      background: #121212;
+      position: relative;
+    }
+    .image-shell img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .image-shell::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to right, rgba(0,0,0,.54), rgba(0,0,0,.08) 32%, rgba(0,0,0,.42));
     }
 
-    .timeline { margin-top: .8rem; border-left: 1px solid rgba(255,255,255,.24); padding-left: .85rem; display: grid; gap: .72rem; }
-    .timeline p { color: var(--muted); }
-
-    label { display: block; font-size: .92rem; margin-top: .6rem; }
-    input, textarea {
-      width: 100%; margin-top: .42rem; border-radius: 10px; padding: .74rem;
-      border: 1px solid rgba(255,255,255,.23); background: #0d0d0d; color: #fff;
+    .products-head {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      align-items: start;
+      margin-bottom: 1.7rem;
     }
-    textarea { min-height: 130px; resize: vertical; }
-    .btn { margin-top: .9rem; padding: .74rem 1rem; border: 0; border-radius: 10px; font-weight: 700; color: #fff; background: linear-gradient(90deg, #ea1a2b, #ff4f5d); }
-
-    footer { border-top: 1px solid rgba(255,255,255,.12); color: #9ea4af; text-align: center; padding: 2rem 0 2.4rem; }
-
-    @media (max-width: 1120px) {
-      .hero-layout { grid-template-columns: 1fr; }
-      .media.tall { min-height: 56vh; }
+    .products-head h2 {
+      font-size: clamp(2.45rem, 5.5vw, 5.5rem);
+      line-height: .94;
+      letter-spacing: -.04em;
+      max-width: 8ch;
     }
-    @media (max-width: 980px) {
+    .products-head p { color: var(--muted); font-size: clamp(1rem, 1.55vw, 1.65rem); line-height: 1.45; }
+
+    .tabs { display: flex; flex-wrap: wrap; gap: .75rem; margin-bottom: 1.15rem; }
+    .tab { border: 1px solid var(--line); border-radius: 999px; padding: .58rem 1rem; font-size: .98rem; font-weight: 700; }
+    .tab.active { background: var(--red); border-color: transparent; }
+
+    .gallery { display: grid; grid-template-columns: 1fr 2fr; gap: .9rem; }
+    .gallery img, .gallery-card { border-radius: 14px; overflow: hidden; border: 1px solid var(--line); background: #111; }
+    .gallery img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .gallery-right { display: grid; grid-template-rows: 1fr 1fr; gap: .9rem; }
+    .gallery-bottom { display: grid; grid-template-columns: 1fr 1fr; gap: .9rem; }
+
+    .category-title { text-align: center; text-transform: uppercase; letter-spacing: .06em; color: #a3a9b1; font-size: .92rem; margin-bottom: .9rem; }
+    .quality-title {
+      text-align: center;
+      font-size: clamp(2.45rem, 5.8vw, 5.2rem);
+      line-height: .95;
+      letter-spacing: -.04em;
+      margin: 0 auto 2.4rem;
+      max-width: 14ch;
+    }
+
+    .feature-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.8rem; }
+    .feature { text-align: center; }
+    .icon {
+      width: 56px; aspect-ratio: 1; margin: 0 auto .65rem;
+      border-radius: 12px;
+      display: grid; place-items: center;
+      background: rgba(186, 0, 24, .18);
+      border: 1px solid rgba(255, 81, 105, .26);
+      color: #ff4a66;
+      font-size: 1.55rem;
+    }
+    .feature h3 { font-size: clamp(1.25rem, 2.1vw, 2rem); margin-bottom: .45rem; }
+    .feature p { color: var(--muted); font-size: clamp(.96rem, 1.2vw, 1.2rem); line-height: 1.45; }
+
+    .center-cta { text-align: center; margin: 2rem 0 2.3rem; }
+    .stats-kicker { text-transform: uppercase; letter-spacing: .06em; color: #a3a8b0; font-size: .92rem; margin-bottom: .65rem; }
+    .stats-title { font-size: clamp(2.45rem, 6vw, 5.4rem); line-height: .95; letter-spacing: -.04em; margin-bottom: 1rem; }
+    .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.2rem; }
+    .stats p { color: var(--muted); font-size: clamp(.95rem, 1.2vw, 1.15rem); }
+    .stats strong { display: block; font-weight: 500; line-height: 1; font-size: clamp(3rem, 7vw, 5.6rem); }
+
+    .contact-dark { text-align: center; }
+    .contact-kicker { text-transform: uppercase; letter-spacing: .08em; color: #a3a8b0; font-size: .92rem; }
+    .contact-title {
+      margin: .75rem 0;
+      font-size: clamp(2.5rem, 6.8vw, 6rem);
+      line-height: .95;
+      letter-spacing: -.04em;
+    }
+    .contact-sub { color: var(--muted); font-size: clamp(1rem, 1.4vw, 1.5rem); margin-bottom: 2rem; }
+    .contact-cards { max-width: 980px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 1.8rem; }
+    .contact-card { text-align: center; padding: .8rem; }
+    .contact-card h4 { font-size: clamp(1.45rem, 2.2vw, 2.1rem); margin: .65rem 0 .3rem; }
+    .contact-card p { color: var(--muted); font-size: clamp(1rem, 1.25vw, 1.3rem); }
+    .contact-card a { margin-top: .55rem; display: inline-block; color: #fff; font-size: clamp(1.05rem, 1.7vw, 1.9rem); }
+
+    .footer-mint { background: var(--mint); color: #12241b; padding: 3rem 0; }
+    .mint-grid { display: grid; grid-template-columns: 1.35fr 1fr 1fr; gap: 2rem; }
+    .mint-title { font-size: clamp(2rem, 4vw, 4rem); line-height: 1.06; max-width: 14ch; margin-bottom: 1.8rem; }
+    .mint-contact { font-size: clamp(1.1rem, 1.8vw, 1.95rem); line-height: 1.55; }
+    .mint-links { display: grid; gap: 1rem; font-size: clamp(1.45rem, 2.4vw, 3rem); font-weight: 700; }
+    .mint-bottom { margin-top: 2.5rem; display: flex; justify-content: space-between; gap: 1rem; font-size: clamp(1rem, 1.4vw, 1.8rem); }
+
+    @media (max-width: 1100px) {
       nav { display: none; }
-      .split, .contact-grid { grid-template-columns: 1fr; }
-      .cards { grid-template-columns: 1fr; }
-      .container { width: 95vw; }
-      .section { min-height: auto; padding-block: 2.8rem; }
+      .hero-grid, .products-head, .gallery, .contact-cards, .mint-grid { grid-template-columns: 1fr; }
+      .gallery-right, .gallery-bottom { grid-template-columns: 1fr; grid-template-rows: auto; }
+      .feature-grid, .stats { grid-template-columns: 1fr; }
+      .image-shell { min-height: 52vh; }
+    }
+
+    @media (max-width: 700px) {
+      .top-inner { height: 66px; }
+      .brand { font-size: 1.4rem; }
+      .logo { width: 32px; }
+      .quote { padding: .65rem 1rem; border-radius: 12px; }
+      .hero-actions { flex-wrap: wrap; }
+      .btn-red, .btn-dark { font-size: 1rem; }
+      .section { padding: 2rem 0; }
+      .mint-bottom { flex-direction: column; align-items: flex-start; }
     }
   </style>
 </head>
 <body>
   <header class="topbar">
-    <div class="container nav-wrap">
+    <div class="container top-inner">
       <div class="brand"><span class="logo" aria-hidden="true"></span>Norva Exports</div>
-      <nav aria-label="Primary">
+      <nav>
         <ul>
-          <li><a href="#home">Home</a></li>
           <li><a href="#products">Products</a></li>
           <li><a href="#about">About</a></li>
-          <li><a href="#workflow">Workflow</a></li>
-          <li><a href="#contact">Contact</a></li>
+          <li><a href="#blog">Blog</a></li>
+          <li><a href="#contact">Support</a></li>
         </ul>
       </nav>
-      <button class="cta">Get Quote</button>
+      <button class="quote">Get Quote</button>
     </div>
   </header>
 
   <main>
-    <section class="section visible" id="home">
-      <div class="container hero-layout">
+    <section class="hero" id="home">
+      <div class="container hero-grid">
         <div>
           <h1>Connecting global markets, delivering quality</h1>
-          <p class="sub">This version is fully responsive and full-width. Image sources are now centralized in JS so mapping to your pushed filenames is quick.</p>
-        </div>
-        <figure class="media tall">
-          <img data-img="hero" src="images/shelfgrains.avif" alt="Hero shelf image" />
-        </figure>
-      </div>
-    </section>
-
-    <section class="section" id="products">
-      <div class="container split">
-        <article class="panel">
-          <h2>Product Categories</h2>
-          <p class="sub">Replace or extend these with your exact asset names.</p>
-          <div class="cards">
-            <figure class="img-card"><img data-img="coffee" alt="Coffee products" /><span class="label">Specialty Coffee</span></figure>
-            <figure class="img-card"><img data-img="spices" alt="Spices products" /><span class="label">Spices & Herbs</span></figure>
-            <figure class="img-card"><img data-img="nuts" alt="Dry fruits products" /><span class="label">Dry Fruits</span></figure>
-            <figure class="img-card"><img data-img="custom" alt="Custom sourcing" /><span class="label">Custom Sourcing</span></figure>
-          </div>
-        </article>
-        <article class="panel">
-          <h2>Market Reach</h2>
-          <div class="img-card" style="min-height: 420px; margin-top: .9rem;">
-            <img data-img="map" alt="Global market map" />
-            <span class="label">42+ Countries served</span>
-          </div>
-        </article>
-      </div>
-    </section>
-
-    <section class="section" id="about">
-      <div class="container split">
-        <article class="panel">
-          <h2>About Norva</h2>
-          <p class="sub">This section is ready for your brand/team imagery.</p>
-          <div class="img-card" style="min-height: 380px; margin-top: .9rem;">
-            <img data-img="about" alt="About team image" />
-            <span class="label">Trusted export partner</span>
-          </div>
-        </article>
-        <article class="panel">
-          <h2>Why Buyers Choose Us</h2>
-          <div class="timeline">
-            <div><strong>01 — Verified sourcing</strong><p>Factory audit and quality checks.</p></div>
-            <div><strong>02 — Transparent pricing</strong><p>Clear costing from origin to destination.</p></div>
-            <div><strong>03 — Global logistics</strong><p>Reliable shipping with live updates.</p></div>
-          </div>
-        </article>
-      </div>
-    </section>
-
-    <section class="section" id="workflow">
-      <div class="container split">
-        <article class="panel">
-          <h2>Workflow</h2>
-          <div class="timeline">
-            <div><strong>Step 1: Requirement</strong><p>Finalize specs and destination.</p></div>
-            <div><strong>Step 2: Sampling</strong><p>Approve product and packaging samples.</p></div>
-            <div><strong>Step 3: Production</strong><p>Batch checks and shipment prep.</p></div>
-            <div><strong>Step 4: Dispatch</strong><p>Customs docs and transport tracking.</p></div>
-          </div>
-        </article>
-        <figure class="img-card" style="min-height: 500px;">
-          <img data-img="workflow" alt="Workflow image" />
-          <span class="label">Export lifecycle</span>
-        </figure>
-      </div>
-    </section>
-
-    <section class="section" id="contact">
-      <div class="container panel">
-        <h2>Contact / Quote</h2>
-        <div class="contact-grid">
-          <div>
-            <label>Name<input type="text" placeholder="Your name" /></label>
-            <label>Company<input type="text" placeholder="Company" /></label>
-            <label>Email<input type="email" placeholder="you@company.com" /></label>
-          </div>
-          <div>
-            <label>Message<textarea placeholder="Product details, quantity, destination"></textarea></label>
+          <p>Specialists in food and construction exports. Reliable sourcing, strict standards, and on-time delivery for international buyers.</p>
+          <div class="hero-actions">
+            <button class="btn-red">Get quote</button>
+            <button class="btn-dark">Contact</button>
           </div>
         </div>
-        <button class="btn">Submit Inquiry</button>
+        <div class="image-shell"><img src="images/home.jpg" alt="Home hero image" /></div>
+      </div>
+    </section>
+
+    <section id="products">
+      <div class="container">
+        <div class="products-head">
+          <h2>Global exports, quality delivered</h2>
+          <p>Discover premium food and construction exports. Browse our curated categories for quality, compliance, and global reach. Explore our full range on the products page.</p>
+        </div>
+
+        <div class="tabs">
+          <span class="tab active">Food products</span>
+          <span class="tab">Construction materials</span>
+          <span class="tab">All categories</span>
+        </div>
+
+        <div class="gallery">
+          <img src="images/products.jpg" alt="Product category image" />
+          <div class="gallery-right">
+            <img src="images/about.jpg" alt="Construction materials" />
+            <div class="gallery-bottom">
+              <img src="images/contact.jpg" alt="Food market" />
+              <div class="gallery-card" style="display:grid;place-items:center;color:var(--muted);font-size:1.15rem;">Add 4th image if available</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="about">
+      <div class="container">
+        <p class="category-title">Our export categories</p>
+        <h2 class="quality-title">Supplying quality. Delivering worldwide.</h2>
+
+        <div class="feature-grid">
+          <article class="feature"><div class="icon">↺</div><h3>Food products</h3><p>Premium rice, pulses, spices, and grains. Sourced for quality and global compliance.</p></article>
+          <article class="feature"><div class="icon">◔</div><h3>Construction materials</h3><p>Certified cement, steel, tiles, and aggregates. Reliable supply for every project.</p></article>
+          <article class="feature"><div class="icon">✉</div><h3>Processed foods</h3><p>Packaged foods, edible oils, dry fruits. Hygienic, safe, and export-ready.</p></article>
+          <article class="feature"><div class="icon">✓</div><h3>Fresh produce</h3><p>Seasonal fruits and vegetables. Selected for export quality and freshness.</p></article>
+          <article class="feature"><div class="icon">♡</div><h3>Industrial supplies</h3><p>Construction chemicals, plumbing, electrical items. Compliant with global standards.</p></article>
+          <article class="feature"><div class="icon">✧</div><h3>Natural stones</h3><p>Granite, marble, and tiles. Durable, high-grade materials for all uses.</p></article>
+        </div>
+
+        <div class="center-cta"><button class="btn-red">Request quote</button></div>
+
+        <p class="stats-kicker">Performance at a glance</p>
+        <h2 class="stats-title">Global trade. Trusted delivery.</h2>
+        <div class="stats">
+          <div><p>Markets served worldwide</p><strong>40+</strong></div>
+          <div><p>On-time shipments</p><strong>98%</strong></div>
+          <div><p>Export experience (years)</p><strong>10+</strong></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="contact-dark">
+      <div class="container">
+        <p class="contact-kicker">Contact</p>
+        <h2 class="contact-title">Let’s talk global trade</h2>
+        <p class="contact-sub">Request quotes or product details. Our team responds fast.</p>
+
+        <div class="contact-cards">
+          <article class="contact-card"><div class="icon">✉</div><h4>Email</h4><p>Send inquiries for a prompt response.</p><a href="#">info@norvaexports.com</a></article>
+          <article class="contact-card"><div class="icon">◔</div><h4>Phone</h4><p>Weekdays, 8am–5pm only.</p><a href="#">+1 (555) 000-0000</a></article>
+        </div>
       </div>
     </section>
   </main>
 
-  <footer>© 2026 Norva Exports · Responsive concept with mapped images.</footer>
-
-  <script>
-    const imageMap = {
-      hero: 'images/shelfgrains.avif',
-      coffee: 'images/grains.avif',
-      spices: 'images/vegitables.avif',
-      nuts: 'images/paddy.avif',
-      custom: 'images/shelfgrains.avif',
-      map: 'images/manseeingmap.avif',
-      about: 'images/groupdiscussion1.avif',
-      workflow: 'images/plandiagram.avif'
-    };
-
-    document.querySelectorAll('img[data-img]').forEach((img) => {
-      const key = img.dataset.img;
-      img.src = imageMap[key] || '';
-      img.addEventListener('error', () => {
-        img.style.opacity = '0';
-        img.parentElement.style.background = 'linear-gradient(135deg,#151515,#222)';
-      }, { once: true });
-    });
-
-    const sections = document.querySelectorAll('.section');
-    const io = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) entry.target.classList.add('visible');
-      });
-    }, { threshold: 0.2 });
-    sections.forEach((sec) => io.observe(sec));
-  </script>
+  <footer class="footer-mint">
+    <div class="container">
+      <div class="mint-grid">
+        <div>
+          <h3 class="mint-title">Bridging global trade, delivered right Contact us</h3>
+          <p class="mint-contact">+1 555 555 5555<br>info@norvaexports.com</p>
+        </div>
+        <div class="mint-links"><span>About</span><span>Markets</span><span>Contact</span></div>
+        <div class="mint-links"><span>Products</span><span>Quality</span><span>Quote</span></div>
+      </div>
+      <div class="mint-bottom">
+        <span>Support</span>
+        <span>© 2026 Norva Exports. All rights reserved.</span>
+      </div>
+    </div>
+  </footer>
 </body>
 </html>
