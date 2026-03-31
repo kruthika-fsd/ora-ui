@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Norva Exports</title>
+  <style>
+    :root {
+      --bg: #050608;
+      --text: #f4f5f6;
+      --muted: #aeb3bb;
+      --red: #b90018;
+      --line: rgba(255, 255, 255, 0.14);
+      --mint: #d4e2da;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: Inter, "Segoe UI", Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      overflow-x: hidden;
+    }
+
+    .container { width: min(1280px, 94vw); margin-inline: auto; }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: linear-gradient(98deg, #7f000e, var(--red) 55%, #ef2f3b);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .top-inner {
+      height: 74px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .brand { display: flex; align-items: center; gap: .65rem; font-weight: 700; font-size: 2rem; }
+    .logo {
+      width: 40px;
+      aspect-ratio: 1;
+      border-radius: 8px;
+      background: #fff;
+      position: relative;
+    }
+    .logo::before { content: ""; position: absolute; inset: 24%; transform: rotate(45deg); background: #b20714; }
+
+    nav ul { list-style: none; display: flex; gap: 1.8rem; font-weight: 600; }
+    nav a { color: #fff; text-decoration: none; }
+    .quote { border: 0; border-radius: 14px; padding: .8rem 1.55rem; background: #fff; color: #111; font-weight: 700; }
+
+    section { padding: clamp(2.5rem, 6vw, 6rem) 0; }
+
+    .hero { padding-top: 2.5rem; }
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.18fr;
+      gap: 1.2rem;
+      align-items: center;
+    }
+    .hero h1 {
+      font-size: clamp(3rem, 6.2vw, 7rem);
+      line-height: .92;
+      letter-spacing: -.045em;
+      max-width: 8.4ch;
+    }
+    .hero p {
+      margin-top: 1.2rem;
+      color: var(--muted);
+      font-size: clamp(1.05rem, 1.5vw, 1.75rem);
+      line-height: 1.45;
+      max-width: 35ch;
+    }
+    .hero-actions { display: flex; gap: .75rem; margin-top: 1.7rem; }
+    .btn-red, .btn-dark {
+      border-radius: 14px;
+      padding: .9rem 1.45rem;
+      font-size: 1.2rem;
+      font-weight: 700;
+      border: 1px solid var(--line);
+    }
+    .btn-red { border-color: transparent; background: var(--red); color: #fff; }
+    .btn-dark { background: transparent; color: #fff; }
+
+    .image-shell {
+      min-height: min(73vh, 760px);
+      border-radius: 18px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      background: #121212;
+      position: relative;
+    }
+    .image-shell img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .image-shell::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to right, rgba(0,0,0,.54), rgba(0,0,0,.08) 32%, rgba(0,0,0,.42));
+    }
+
+    .products-head {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      align-items: start;
+      margin-bottom: 1.7rem;
+    }
+    .products-head h2 {
+      font-size: clamp(2.45rem, 5.5vw, 5.5rem);
+      line-height: .94;
+      letter-spacing: -.04em;
+      max-width: 8ch;
+    }
+    .products-head p { color: var(--muted); font-size: clamp(1rem, 1.55vw, 1.65rem); line-height: 1.45; }
+
+    .tabs { display: flex; flex-wrap: wrap; gap: .75rem; margin-bottom: 1.15rem; }
+    .tab { border: 1px solid var(--line); border-radius: 999px; padding: .58rem 1rem; font-size: .98rem; font-weight: 700; }
+    .tab.active { background: var(--red); border-color: transparent; }
+
+    .gallery { display: grid; grid-template-columns: 1fr 2fr; gap: .9rem; }
+    .gallery img, .gallery-card { border-radius: 14px; overflow: hidden; border: 1px solid var(--line); background: #111; }
+    .gallery img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .gallery-right { display: grid; grid-template-rows: 1fr 1fr; gap: .9rem; }
+    .gallery-bottom { display: grid; grid-template-columns: 1fr 1fr; gap: .9rem; }
+
+    .category-title { text-align: center; text-transform: uppercase; letter-spacing: .06em; color: #a3a9b1; font-size: .92rem; margin-bottom: .9rem; }
+    .quality-title {
+      text-align: center;
+      font-size: clamp(2.45rem, 5.8vw, 5.2rem);
+      line-height: .95;
+      letter-spacing: -.04em;
+      margin: 0 auto 2.4rem;
+      max-width: 14ch;
+    }
+
+    .feature-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.8rem; }
+    .feature { text-align: center; }
+    .icon {
+      width: 56px; aspect-ratio: 1; margin: 0 auto .65rem;
+      border-radius: 12px;
+      display: grid; place-items: center;
+      background: rgba(186, 0, 24, .18);
+      border: 1px solid rgba(255, 81, 105, .26);
+      color: #ff4a66;
+      font-size: 1.55rem;
+    }
+    .feature h3 { font-size: clamp(1.25rem, 2.1vw, 2rem); margin-bottom: .45rem; }
+    .feature p { color: var(--muted); font-size: clamp(.96rem, 1.2vw, 1.2rem); line-height: 1.45; }
+
+    .center-cta { text-align: center; margin: 2rem 0 2.3rem; }
+    .stats-kicker { text-transform: uppercase; letter-spacing: .06em; color: #a3a8b0; font-size: .92rem; margin-bottom: .65rem; }
+    .stats-title { font-size: clamp(2.45rem, 6vw, 5.4rem); line-height: .95; letter-spacing: -.04em; margin-bottom: 1rem; }
+    .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.2rem; }
+    .stats p { color: var(--muted); font-size: clamp(.95rem, 1.2vw, 1.15rem); }
+    .stats strong { display: block; font-weight: 500; line-height: 1; font-size: clamp(3rem, 7vw, 5.6rem); }
+
+    .contact-dark { text-align: center; }
+    .contact-kicker { text-transform: uppercase; letter-spacing: .08em; color: #a3a8b0; font-size: .92rem; }
+    .contact-title {
+      margin: .75rem 0;
+      font-size: clamp(2.5rem, 6.8vw, 6rem);
+      line-height: .95;
+      letter-spacing: -.04em;
+    }
+    .contact-sub { color: var(--muted); font-size: clamp(1rem, 1.4vw, 1.5rem); margin-bottom: 2rem; }
+    .contact-cards { max-width: 980px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 1.8rem; }
+    .contact-card { text-align: center; padding: .8rem; }
+    .contact-card h4 { font-size: clamp(1.45rem, 2.2vw, 2.1rem); margin: .65rem 0 .3rem; }
+    .contact-card p { color: var(--muted); font-size: clamp(1rem, 1.25vw, 1.3rem); }
+    .contact-card a { margin-top: .55rem; display: inline-block; color: #fff; font-size: clamp(1.05rem, 1.7vw, 1.9rem); }
+
+    .footer-mint { background: var(--mint); color: #12241b; padding: 3rem 0; }
+    .mint-grid { display: grid; grid-template-columns: 1.35fr 1fr 1fr; gap: 2rem; }
+    .mint-title { font-size: clamp(2rem, 4vw, 4rem); line-height: 1.06; max-width: 14ch; margin-bottom: 1.8rem; }
+    .mint-contact { font-size: clamp(1.1rem, 1.8vw, 1.95rem); line-height: 1.55; }
+    .mint-links { display: grid; gap: 1rem; font-size: clamp(1.45rem, 2.4vw, 3rem); font-weight: 700; }
+    .mint-bottom { margin-top: 2.5rem; display: flex; justify-content: space-between; gap: 1rem; font-size: clamp(1rem, 1.4vw, 1.8rem); }
+
+    @media (max-width: 1100px) {
+      nav { display: none; }
+      .hero-grid, .products-head, .gallery, .contact-cards, .mint-grid { grid-template-columns: 1fr; }
+      .gallery-right, .gallery-bottom { grid-template-columns: 1fr; grid-template-rows: auto; }
+      .feature-grid, .stats { grid-template-columns: 1fr; }
+      .image-shell { min-height: 52vh; }
+    }
+
+    @media (max-width: 700px) {
+      .top-inner { height: 66px; }
+      .brand { font-size: 1.4rem; }
+      .logo { width: 32px; }
+      .quote { padding: .65rem 1rem; border-radius: 12px; }
+      .hero-actions { flex-wrap: wrap; }
+      .btn-red, .btn-dark { font-size: 1rem; }
+      .section { padding: 2rem 0; }
+      .mint-bottom { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="container top-inner">
+      <div class="brand"><span class="logo" aria-hidden="true"></span>Norva Exports</div>
+      <nav>
+        <ul>
+          <li><a href="#products">Products</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#blog">Blog</a></li>
+          <li><a href="#contact">Support</a></li>
+        </ul>
+      </nav>
+      <button class="quote">Get Quote</button>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" id="home">
+      <div class="container hero-grid">
+        <div>
+          <h1>Connecting global markets, delivering quality</h1>
+          <p>Specialists in food and construction exports. Reliable sourcing, strict standards, and on-time delivery for international buyers.</p>
+          <div class="hero-actions">
+            <button class="btn-red">Get quote</button>
+            <button class="btn-dark">Contact</button>
+          </div>
+        </div>
+        <div class="image-shell"><img src="images/home.jpg" alt="Home hero image" /></div>
+      </div>
+    </section>
+
+    <section id="products">
+      <div class="container">
+        <div class="products-head">
+          <h2>Global exports, quality delivered</h2>
+          <p>Discover premium food and construction exports. Browse our curated categories for quality, compliance, and global reach. Explore our full range on the products page.</p>
+        </div>
+
+        <div class="tabs">
+          <span class="tab active">Food products</span>
+          <span class="tab">Construction materials</span>
+          <span class="tab">All categories</span>
+        </div>
+
+        <div class="gallery">
+          <img src="images/products.jpg" alt="Product category image" />
+          <div class="gallery-right">
+            <img src="images/about.jpg" alt="Construction materials" />
+            <div class="gallery-bottom">
+              <img src="images/contact.jpg" alt="Food market" />
+              <div class="gallery-card" style="display:grid;place-items:center;color:var(--muted);font-size:1.15rem;">Add 4th image if available</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="about">
+      <div class="container">
+        <p class="category-title">Our export categories</p>
+        <h2 class="quality-title">Supplying quality. Delivering worldwide.</h2>
+
+        <div class="feature-grid">
+          <article class="feature"><div class="icon">↺</div><h3>Food products</h3><p>Premium rice, pulses, spices, and grains. Sourced for quality and global compliance.</p></article>
+          <article class="feature"><div class="icon">◔</div><h3>Construction materials</h3><p>Certified cement, steel, tiles, and aggregates. Reliable supply for every project.</p></article>
+          <article class="feature"><div class="icon">✉</div><h3>Processed foods</h3><p>Packaged foods, edible oils, dry fruits. Hygienic, safe, and export-ready.</p></article>
+          <article class="feature"><div class="icon">✓</div><h3>Fresh produce</h3><p>Seasonal fruits and vegetables. Selected for export quality and freshness.</p></article>
+          <article class="feature"><div class="icon">♡</div><h3>Industrial supplies</h3><p>Construction chemicals, plumbing, electrical items. Compliant with global standards.</p></article>
+          <article class="feature"><div class="icon">✧</div><h3>Natural stones</h3><p>Granite, marble, and tiles. Durable, high-grade materials for all uses.</p></article>
+        </div>
+
+        <div class="center-cta"><button class="btn-red">Request quote</button></div>
+
+        <p class="stats-kicker">Performance at a glance</p>
+        <h2 class="stats-title">Global trade. Trusted delivery.</h2>
+        <div class="stats">
+          <div><p>Markets served worldwide</p><strong>40+</strong></div>
+          <div><p>On-time shipments</p><strong>98%</strong></div>
+          <div><p>Export experience (years)</p><strong>10+</strong></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="contact-dark">
+      <div class="container">
+        <p class="contact-kicker">Contact</p>
+        <h2 class="contact-title">Let’s talk global trade</h2>
+        <p class="contact-sub">Request quotes or product details. Our team responds fast.</p>
+
+        <div class="contact-cards">
+          <article class="contact-card"><div class="icon">✉</div><h4>Email</h4><p>Send inquiries for a prompt response.</p><a href="#">info@norvaexports.com</a></article>
+          <article class="contact-card"><div class="icon">◔</div><h4>Phone</h4><p>Weekdays, 8am–5pm only.</p><a href="#">+1 (555) 000-0000</a></article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer-mint">
+    <div class="container">
+      <div class="mint-grid">
+        <div>
+          <h3 class="mint-title">Bridging global trade, delivered right Contact us</h3>
+          <p class="mint-contact">+1 555 555 5555<br>info@norvaexports.com</p>
+        </div>
+        <div class="mint-links"><span>About</span><span>Markets</span><span>Contact</span></div>
+        <div class="mint-links"><span>Products</span><span>Quality</span><span>Quote</span></div>
+      </div>
+      <div class="mint-bottom">
+        <span>Support</span>
+        <span>© 2026 Norva Exports. All rights reserved.</span>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
