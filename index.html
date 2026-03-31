@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Norva Exports</title>
+  <style>
+    :root {
+      --bg: #060709;
+      --text: #f5f5f6;
+      --muted: #aeb4bd;
+      --line: rgba(255, 255, 255, 0.16);
+      --red: #bb0018;
+      --mint: #d2e2d9;
+      --radius: 16px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: Inter, "Segoe UI", Roboto, sans-serif;
+      background: radial-gradient(circle at 50% -20%, #15171c, #060709 45%);
+      color: var(--text);
+      overflow-x: hidden;
+      line-height: 1.35;
+    }
+    img { display: block; width: 100%; height: 100%; object-fit: cover; }
+    .container { width: min(1240px, 94vw); margin-inline: auto; }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: linear-gradient(100deg, #79000d, var(--red) 55%, #ee2e3a);
+      border-bottom: 1px solid rgba(255,255,255,.22);
+    }
+    .top-inner {
+      min-height: 74px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+    .brand { display: flex; align-items: center; gap: .6rem; font-size: clamp(1.2rem, 1.5vw, 2rem); font-weight: 700; }
+    .logo { width: clamp(30px, 2.8vw, 40px); aspect-ratio: 1; border-radius: 8px; background: #fff; position: relative; }
+    .logo::before { content: ""; position: absolute; inset: 24%; transform: rotate(45deg); background: #b10715; }
+
+    nav ul { list-style: none; display: flex; gap: clamp(.8rem, 2vw, 2rem); }
+    nav a { text-decoration: none; color: #fff; font-weight: 600; font-size: clamp(.9rem, 1vw, 1.05rem); }
+    .quote { border: 0; background: #fff; color: #111; font-weight: 700; border-radius: 14px; padding: .75rem 1.35rem; }
+
+    section { padding: clamp(2.2rem, 5vw, 5rem) 0; }
+
+    .hero { min-height: min(95vh, 980px); display: grid; align-items: center; }
+    .hero-grid { display: grid; grid-template-columns: 1fr 1.12fr; gap: clamp(.8rem, 1.4vw, 1.2rem); align-items: center; }
+    .hero h1 {
+      font-size: clamp(2.6rem, 7.2vw, 8rem);
+      letter-spacing: -.05em;
+      line-height: .92;
+      max-width: 8.4ch;
+    }
+    .hero p {
+      margin-top: 1.2rem;
+      color: var(--muted);
+      font-size: clamp(1rem, 1.45vw, 1.55rem);
+      max-width: 35ch;
+    }
+    .hero-actions { display: flex; gap: .75rem; margin-top: 1.7rem; }
+    .btn { border-radius: 14px; padding: .86rem 1.45rem; font-size: clamp(.95rem, 1.15vw, 1.2rem); font-weight: 700; border: 1px solid var(--line); }
+    .btn.red { border-color: transparent; background: var(--red); color: #fff; }
+    .btn.dark { background: transparent; color: #fff; }
+    .hero-media { border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; min-height: min(72vh, 720px); position: relative; }
+    .hero-media::after { content:""; position:absolute; inset:0; background:linear-gradient(to right, rgba(0,0,0,.56), rgba(0,0,0,.12) 35%, rgba(0,0,0,.44)); }
+
+    .products-head { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(1rem, 2vw, 2.2rem); margin-bottom: 1.4rem; }
+    .products-head h2 { font-size: clamp(2.15rem, 5.6vw, 5.2rem); line-height: .94; letter-spacing: -.04em; max-width: 8.5ch; }
+    .products-head p { color: var(--muted); font-size: clamp(1rem, 1.4vw, 1.4rem); max-width: 40ch; }
+
+    .tabs { display: flex; gap: .7rem; flex-wrap: wrap; margin-bottom: 1rem; }
+    .tab { border: 1px solid var(--line); border-radius: 999px; padding: .52rem .95rem; font-size: .92rem; font-weight: 700; }
+    .tab.active { background: var(--red); border-color: transparent; }
+
+    .gallery { display: grid; grid-template-columns: .92fr 1.6fr; gap: .75rem; }
+    .gallery-card { border-radius: var(--radius); overflow: hidden; border: 1px solid var(--line); min-height: 260px; background: #0f1012; }
+    .gallery-right { display: grid; grid-template-rows: 1fr .72fr; gap: .75rem; }
+    .gallery-bottom { display: grid; grid-template-columns: 1fr 1fr; gap: .75rem; }
+
+    .category-title { text-align: center; text-transform: uppercase; font-size: .88rem; letter-spacing: .08em; color: #9da3ac; margin-bottom: .9rem; }
+    .quality-title { font-size: clamp(2.1rem, 5.6vw, 5rem); line-height: .94; letter-spacing: -.04em; text-align: center; max-width: 13.5ch; margin: 0 auto 2.1rem; }
+
+    .feature-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.6rem 1.8rem; }
+    .feature { text-align: center; }
+    .icon { width: 52px; aspect-ratio: 1; margin: 0 auto .7rem; border-radius: 12px; display: grid; place-items: center; color:#ff4a66; background: rgba(185,0,24,.18); border:1px solid rgba(255,81,105,.25); font-size: 1.45rem; }
+    .feature h3 { font-size: clamp(1.2rem, 1.8vw, 1.9rem); margin-bottom: .4rem; }
+    .feature p { color: var(--muted); font-size: clamp(.92rem, 1.08vw, 1.1rem); }
+
+    .center { text-align: center; margin: 2rem 0 2.2rem; }
+    .kicker { text-transform: uppercase; letter-spacing: .08em; color: #9da3ac; font-size: .88rem; }
+    .stats-title { font-size: clamp(2.2rem, 5.9vw, 5.2rem); line-height: .94; letter-spacing: -.04em; margin: .6rem 0 1rem; }
+    .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+    .stats p { color: var(--muted); font-size: clamp(.9rem, 1.1vw, 1.1rem); }
+    .stats strong { display: block; font-size: clamp(2.8rem, 6.5vw, 5.4rem); font-weight: 500; line-height: 1.02; }
+
+    .contact-dark { text-align: center; }
+    .contact-title { font-size: clamp(2.3rem, 6.2vw, 5.8rem); line-height: .94; letter-spacing: -.04em; margin: .7rem 0; }
+    .contact-sub { color: var(--muted); font-size: clamp(1rem, 1.25vw, 1.35rem); margin-bottom: 1.8rem; }
+    .contact-cards { max-width: 940px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; }
+    .contact-card { padding: .5rem .9rem; }
+    .contact-card h4 { font-size: clamp(1.3rem, 2vw, 2rem); margin: .55rem 0 .35rem; }
+    .contact-card p { color: var(--muted); font-size: clamp(.95rem, 1.1vw, 1.2rem); }
+    .contact-card a { display: inline-block; margin-top: .55rem; color: #fff; font-size: clamp(1rem, 1.5vw, 1.6rem); }
+
+    .footer-mint { background: var(--mint); color: #11241b; margin-top: 1.4rem; }
+    .footer-wrap { padding: clamp(2rem, 5vw, 3.2rem) 0; }
+    .mint-grid { display: grid; grid-template-columns: 1.35fr 1fr 1fr; gap: 1.4rem; }
+    .mint-title { font-size: clamp(2rem, 3.9vw, 3.8rem); line-height: 1.06; max-width: 14ch; margin-bottom: 1.5rem; }
+    .mint-contact { font-size: clamp(1rem, 1.55vw, 1.8rem); line-height: 1.5; }
+    .mint-links { display: grid; gap: .8rem; font-size: clamp(1.35rem, 2.1vw, 2.6rem); font-weight: 700; }
+    .mint-bottom { margin-top: 2rem; display: flex; justify-content: space-between; gap: 1rem; font-size: clamp(.95rem, 1.2vw, 1.4rem); }
+
+    @media (max-width: 1024px) {
+      nav { display: none; }
+      .hero { min-height: auto; }
+      .hero-grid, .products-head, .gallery, .contact-cards, .mint-grid { grid-template-columns: 1fr; }
+      .gallery-right, .gallery-bottom { grid-template-columns: 1fr; grid-template-rows: auto; }
+      .feature-grid, .stats { grid-template-columns: 1fr; }
+      .hero-media { min-height: 50vh; }
+    }
+
+    @media (max-width: 640px) {
+      .top-inner { min-height: 64px; }
+      .quote { padding: .62rem .94rem; font-size: .9rem; }
+      .hero-actions { flex-wrap: wrap; }
+      .mint-bottom { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="container top-inner">
+      <div class="brand"><span class="logo" aria-hidden="true"></span>Norva Exports</div>
+      <nav>
+        <ul>
+          <li><a href="#products">Products</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#blog">Blog</a></li>
+          <li><a href="#contact">Support</a></li>
+        </ul>
+      </nav>
+      <button class="quote">Get Quote</button>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" id="home">
+      <div class="container hero-grid">
+        <div>
+          <h1>Connecting global markets, delivering quality</h1>
+          <p>Specialists in food and construction exports. Reliable sourcing, strict standards, and on-time delivery for international buyers.</p>
+          <div class="hero-actions">
+            <button class="btn red">Get quote</button>
+            <button class="btn dark">Contact</button>
+          </div>
+        </div>
+        <div class="hero-media"><img src="images/home.jpg" alt="Home hero image" /></div>
+      </div>
+    </section>
+
+    <section id="products">
+      <div class="container">
+        <div class="products-head">
+          <h2>Global exports, quality delivered</h2>
+          <p>Discover premium food and construction exports. Browse our curated categories for quality, compliance, and global reach. Explore our full range on the products page.</p>
+        </div>
+
+        <div class="tabs">
+          <span class="tab active">Food products</span>
+          <span class="tab">Construction materials</span>
+          <span class="tab">All categories</span>
+        </div>
+
+        <div class="gallery">
+          <div class="gallery-card"><img src="images/products.jpg" alt="Product category image" /></div>
+          <div class="gallery-right">
+            <div class="gallery-card"><img src="images/about.jpg" alt="Construction materials" /></div>
+            <div class="gallery-bottom">
+              <div class="gallery-card"><img src="images/contact.jpg" alt="Food market" /></div>
+              <div class="gallery-card" style="display:grid;place-items:center;color:var(--muted);font-size:1.1rem;">Add 4th image if available</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="about">
+      <div class="container">
+        <p class="category-title">Our export categories</p>
+        <h2 class="quality-title">Supplying quality. Delivering worldwide.</h2>
+
+        <div class="feature-grid">
+          <article class="feature"><div class="icon">↺</div><h3>Food products</h3><p>Premium rice, pulses, spices, and grains. Sourced for quality and global compliance.</p></article>
+          <article class="feature"><div class="icon">◔</div><h3>Construction materials</h3><p>Certified cement, steel, tiles, and aggregates. Reliable supply for every project.</p></article>
+          <article class="feature"><div class="icon">✉</div><h3>Processed foods</h3><p>Packaged foods, edible oils, dry fruits. Hygienic, safe, and export-ready.</p></article>
+          <article class="feature"><div class="icon">✓</div><h3>Fresh produce</h3><p>Seasonal fruits and vegetables. Selected for export quality and freshness.</p></article>
+          <article class="feature"><div class="icon">♡</div><h3>Industrial supplies</h3><p>Construction chemicals, plumbing, electrical items. Compliant with global standards.</p></article>
+          <article class="feature"><div class="icon">✧</div><h3>Natural stones</h3><p>Granite, marble, and tiles. Durable, high-grade materials for all uses.</p></article>
+        </div>
+
+        <div class="center"><button class="btn red">Request quote</button></div>
+
+        <p class="kicker">Performance at a glance</p>
+        <h2 class="stats-title">Global trade. Trusted delivery.</h2>
+        <div class="stats">
+          <div><p>Markets served worldwide</p><strong>40+</strong></div>
+          <div><p>On-time shipments</p><strong>98%</strong></div>
+          <div><p>Export experience (years)</p><strong>10+</strong></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="contact-dark">
+      <div class="container">
+        <p class="kicker">Contact</p>
+        <h2 class="contact-title">Let’s talk global trade</h2>
+        <p class="contact-sub">Request quotes or product details. Our team responds fast.</p>
+
+        <div class="contact-cards">
+          <article class="contact-card"><div class="icon">✉</div><h4>Email</h4><p>Send inquiries for a prompt response.</p><a href="#">info@norvaexports.com</a></article>
+          <article class="contact-card"><div class="icon">◔</div><h4>Phone</h4><p>Weekdays, 8am–5pm only.</p><a href="#">+1 (555) 000-0000</a></article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer-mint">
+    <div class="container footer-wrap">
+      <div class="mint-grid">
+        <div>
+          <h3 class="mint-title">Bridging global trade, delivered right Contact us</h3>
+          <p class="mint-contact">+1 555 555 5555<br>info@norvaexports.com</p>
+        </div>
+        <div class="mint-links"><span>About</span><span>Markets</span><span>Contact</span></div>
+        <div class="mint-links"><span>Products</span><span>Quality</span><span>Quote</span></div>
+      </div>
+      <div class="mint-bottom">
+        <span>Support</span>
+        <span>© 2026 Norva Exports. All rights reserved.</span>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
