@@ -80,10 +80,7 @@
       content: ""; position: absolute; inset: 0; pointer-events: none;
       background: linear-gradient(to right, rgba(0,0,0,.5), rgba(0,0,0,.12) 40%, rgba(0,0,0,.45));
     }
-    .overlay-frame {
-      position: absolute; left: 7%; top: 9%; width: 48%; height: 78%; z-index: 2;
-      border: 1px solid rgba(70,166,255,.55);
-    }
+   
 
     .cards { margin-top: .9rem; display: grid; grid-template-columns: repeat(2, minmax(190px, 1fr)); gap: .9rem; }
     .img-card {
@@ -111,7 +108,6 @@
 
     @media (max-width: 1120px) {
       .hero-layout { grid-template-columns: 1fr; }
-      .overlay-frame { display: none; }
       .media.tall { min-height: 56vh; }
     }
     @media (max-width: 980px) {
@@ -144,13 +140,11 @@
     <section class="section visible" id="home">
       <div class="container hero-layout">
         <div>
-          <p class="kicker">H1 heading_hero</p>
           <h1>Connecting global markets, delivering quality</h1>
           <p class="sub">This version is fully responsive and full-width. Image sources are now centralized in JS so mapping to your pushed filenames is quick.</p>
         </div>
         <figure class="media tall">
-          <img data-img="hero" alt="Hero shelf image" />
-          <div class="overlay-frame"></div>
+          <img data-img="hero" src="images/shelfgrains.avif" alt="Hero shelf image" />
         </figure>
       </div>
     </section>
@@ -238,14 +232,14 @@
 
   <script>
     const imageMap = {
-      hero: 'images/hero-shelf.jpg',
-      coffee: 'images/product-coffee.jpg',
-      spices: 'images/product-spices.jpg',
-      nuts: 'images/product-nuts.jpg',
-      custom: 'images/product-custom.jpg',
-      map: 'images/market-map.jpg',
-      about: 'images/about-team.jpg',
-      workflow: 'images/workflow.jpg'
+      hero: 'images/shelfgrains.avif',
+      coffee: 'images/grains.avif',
+      spices: 'images/vegitables.avif',
+      nuts: 'images/paddy.avif',
+      custom: 'images/shelfgrains.avif',
+      map: 'images/manseeingmap.avif',
+      about: 'images/groupdiscussion1.avif',
+      workflow: 'images/plandiagram.avif'
     };
 
     document.querySelectorAll('img[data-img]').forEach((img) => {
