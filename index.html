@@ -3,217 +3,181 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Norva Exports</title>
+  <title>Trade Bridge | Global Food & Construction Exporter</title>
+  <meta name="description" content="Trade Bridge is a global import-export company specializing in premium food products and construction materials with reliable delivery and international compliance." />
   <style>
     :root {
-      --bg: #050608;
+      --bg: #07080a;
+      --surface: #101317;
+      --surface-2: #161b20;
       --text: #f4f5f6;
-      --muted: #aeb3bb;
-      --red: #b90018;
-      --line: rgba(255, 255, 255, 0.14);
-      --mint: #d4e2da;
+      --muted: #b3bac4;
+      --brand: #bd0018;
+      --brand-2: #ea2f3f;
+      --line: rgba(255, 255, 255, .14);
+      --mint: #d5e3db;
+      --radius: 14px;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
     body {
-      font-family: Inter, "Segoe UI", Roboto, sans-serif;
-      background: var(--bg);
+      font-family: Inter, "Segoe UI", Roboto, Arial, sans-serif;
+      background: radial-gradient(circle at 40% -30%, #1a1e24, var(--bg) 42%);
       color: var(--text);
-      overflow-x: hidden;
+      line-height: 1.45;
     }
 
-    .container { width: min(1280px, 94vw); margin-inline: auto; }
+    .container { width: min(1240px, 94vw); margin-inline: auto; }
 
-    .topbar {
+    header {
       position: sticky;
       top: 0;
-      z-index: 50;
-      background: linear-gradient(98deg, #7f000e, var(--red) 55%, #ef2f3b);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+      z-index: 99;
+      background: linear-gradient(100deg, #7b000e, var(--brand) 52%, var(--brand-2));
+      border-bottom: 1px solid rgba(255,255,255,.2);
     }
 
-    .top-inner {
-      height: 74px;
+    .nav {
+      min-height: 72px;
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 1rem;
     }
 
-    .brand { display: flex; align-items: center; gap: .65rem; font-weight: 700; font-size: 2rem; }
+    .logo-wrap { display: flex; align-items: center; gap: .65rem; font-weight: 700; font-size: clamp(1.1rem, 1.5vw, 1.8rem); }
     .logo {
-      width: 40px;
+      width: 34px;
       aspect-ratio: 1;
       border-radius: 8px;
       background: #fff;
       position: relative;
     }
-    .logo::before { content: ""; position: absolute; inset: 24%; transform: rotate(45deg); background: #b20714; }
+    .logo::before { content: ""; position: absolute; inset: 24%; background: #b30715; transform: rotate(45deg); }
 
-    nav ul { list-style: none; display: flex; gap: 1.8rem; font-weight: 600; }
-    nav a { color: #fff; text-decoration: none; }
-    .quote { border: 0; border-radius: 14px; padding: .8rem 1.55rem; background: #fff; color: #111; font-weight: 700; }
+    .nav-links { list-style: none; display: flex; gap: clamp(.7rem, 1.8vw, 1.8rem); }
+    .nav-links a { text-decoration: none; color: #fff; font-size: .95rem; font-weight: 600; }
+    .quote-btn { border: 0; background: #fff; color: #111; border-radius: 12px; padding: .72rem 1.2rem; font-weight: 700; }
 
-    section { padding: clamp(2.5rem, 6vw, 6rem) 0; }
+    section { padding: clamp(2.4rem, 5vw, 5rem) 0; }
 
-    .hero { padding-top: 2.5rem; }
-    .hero-grid {
-      display: grid;
-      grid-template-columns: 1fr 1.18fr;
-      gap: 1.2rem;
-      align-items: center;
-    }
-    .hero h1 {
-      font-size: clamp(3rem, 6.2vw, 7rem);
+    .hero { min-height: min(94vh, 920px); display: grid; align-items: center; }
+    .hero-grid { display: grid; grid-template-columns: 1fr 1.06fr; gap: 1rem; align-items: center; }
+    h1 {
+      font-size: clamp(2.2rem, 6.8vw, 6.6rem);
       line-height: .92;
       letter-spacing: -.045em;
-      max-width: 8.4ch;
+      max-width: 9ch;
     }
-    .hero p {
-      margin-top: 1.2rem;
-      color: var(--muted);
-      font-size: clamp(1.05rem, 1.5vw, 1.75rem);
-      line-height: 1.45;
-      max-width: 35ch;
-    }
-    .hero-actions { display: flex; gap: .75rem; margin-top: 1.7rem; }
-    .btn-red, .btn-dark {
-      border-radius: 14px;
-      padding: .9rem 1.45rem;
-      font-size: 1.2rem;
-      font-weight: 700;
-      border: 1px solid var(--line);
-    }
-    .btn-red { border-color: transparent; background: var(--red); color: #fff; }
-    .btn-dark { background: transparent; color: #fff; }
-
-    .image-shell {
-      min-height: min(73vh, 760px);
-      border-radius: 18px;
-      overflow: hidden;
-      border: 1px solid var(--line);
-      background: #121212;
-      position: relative;
-    }
-    .image-shell img { width: 100%; height: 100%; object-fit: cover; display: block; }
-    .image-shell::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(to right, rgba(0,0,0,.54), rgba(0,0,0,.08) 32%, rgba(0,0,0,.42));
-    }
-
-    .products-head {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 2rem;
-      align-items: start;
-      margin-bottom: 1.7rem;
-    }
-    .products-head h2 {
-      font-size: clamp(2.45rem, 5.5vw, 5.5rem);
-      line-height: .94;
-      letter-spacing: -.04em;
-      max-width: 8ch;
-    }
-    .products-head p { color: var(--muted); font-size: clamp(1rem, 1.55vw, 1.65rem); line-height: 1.45; }
-
-    .tabs { display: flex; flex-wrap: wrap; gap: .75rem; margin-bottom: 1.15rem; }
-    .tab { border: 1px solid var(--line); border-radius: 999px; padding: .58rem 1rem; font-size: .98rem; font-weight: 700; }
-    .tab.active { background: var(--red); border-color: transparent; }
-
-    .gallery { display: grid; grid-template-columns: 1fr 2fr; gap: .9rem; }
-    .gallery img, .gallery-card { border-radius: 14px; overflow: hidden; border: 1px solid var(--line); background: #111; }
-    .gallery img { width: 100%; height: 100%; object-fit: cover; display: block; }
-    .gallery-right { display: grid; grid-template-rows: 1fr 1fr; gap: .9rem; }
-    .gallery-bottom { display: grid; grid-template-columns: 1fr 1fr; gap: .9rem; }
-
-    .category-title { text-align: center; text-transform: uppercase; letter-spacing: .06em; color: #a3a9b1; font-size: .92rem; margin-bottom: .9rem; }
-    .quality-title {
-      text-align: center;
-      font-size: clamp(2.45rem, 5.8vw, 5.2rem);
-      line-height: .95;
-      letter-spacing: -.04em;
-      margin: 0 auto 2.4rem;
-      max-width: 14ch;
-    }
-
-    .feature-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.8rem; }
-    .feature { text-align: center; }
-    .icon {
-      width: 56px; aspect-ratio: 1; margin: 0 auto .65rem;
+    .hero p { margin-top: 1rem; color: var(--muted); max-width: 42ch; font-size: clamp(1rem, 1.4vw, 1.35rem); }
+    .cta-row { display: flex; flex-wrap: wrap; gap: .7rem; margin-top: 1.45rem; }
+    .btn {
       border-radius: 12px;
-      display: grid; place-items: center;
-      background: rgba(186, 0, 24, .18);
-      border: 1px solid rgba(255, 81, 105, .26);
-      color: #ff4a66;
-      font-size: 1.55rem;
+      padding: .78rem 1.15rem;
+      border: 1px solid var(--line);
+      font-weight: 700;
+      font-size: .98rem;
+      color: #fff;
+      background: transparent;
     }
-    .feature h3 { font-size: clamp(1.25rem, 2.1vw, 2rem); margin-bottom: .45rem; }
-    .feature p { color: var(--muted); font-size: clamp(.96rem, 1.2vw, 1.2rem); line-height: 1.45; }
+    .btn.primary { background: var(--brand); border-color: transparent; }
 
-    .center-cta { text-align: center; margin: 2rem 0 2.3rem; }
-    .stats-kicker { text-transform: uppercase; letter-spacing: .06em; color: #a3a8b0; font-size: .92rem; margin-bottom: .65rem; }
-    .stats-title { font-size: clamp(2.45rem, 6vw, 5.4rem); line-height: .95; letter-spacing: -.04em; margin-bottom: 1rem; }
-    .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.2rem; }
-    .stats p { color: var(--muted); font-size: clamp(.95rem, 1.2vw, 1.15rem); }
-    .stats strong { display: block; font-weight: 500; line-height: 1; font-size: clamp(3rem, 7vw, 5.6rem); }
-
-    .contact-dark { text-align: center; }
-    .contact-kicker { text-transform: uppercase; letter-spacing: .08em; color: #a3a8b0; font-size: .92rem; }
-    .contact-title {
-      margin: .75rem 0;
-      font-size: clamp(2.5rem, 6.8vw, 6rem);
-      line-height: .95;
-      letter-spacing: -.04em;
+    .hero-image {
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      overflow: hidden;
+      min-height: min(70vh, 680px);
+      background: var(--surface);
     }
-    .contact-sub { color: var(--muted); font-size: clamp(1rem, 1.4vw, 1.5rem); margin-bottom: 2rem; }
-    .contact-cards { max-width: 980px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 1.8rem; }
-    .contact-card { text-align: center; padding: .8rem; }
-    .contact-card h4 { font-size: clamp(1.45rem, 2.2vw, 2.1rem); margin: .65rem 0 .3rem; }
-    .contact-card p { color: var(--muted); font-size: clamp(1rem, 1.25vw, 1.3rem); }
-    .contact-card a { margin-top: .55rem; display: inline-block; color: #fff; font-size: clamp(1.05rem, 1.7vw, 1.9rem); }
+    .hero-image img { width: 100%; height: 100%; object-fit: cover; }
 
-    .footer-mint { background: var(--mint); color: #12241b; padding: 3rem 0; }
-    .mint-grid { display: grid; grid-template-columns: 1.35fr 1fr 1fr; gap: 2rem; }
-    .mint-title { font-size: clamp(2rem, 4vw, 4rem); line-height: 1.06; max-width: 14ch; margin-bottom: 1.8rem; }
-    .mint-contact { font-size: clamp(1.1rem, 1.8vw, 1.95rem); line-height: 1.55; }
-    .mint-links { display: grid; gap: 1rem; font-size: clamp(1.45rem, 2.4vw, 3rem); font-weight: 700; }
-    .mint-bottom { margin-top: 2.5rem; display: flex; justify-content: space-between; gap: 1rem; font-size: clamp(1rem, 1.4vw, 1.8rem); }
+    .section-title {
+      font-size: clamp(1.8rem, 4vw, 3.8rem);
+      line-height: .96;
+      letter-spacing: -.03em;
+      margin-bottom: .9rem;
+    }
+    .section-intro { color: var(--muted); max-width: 78ch; margin-bottom: 1.2rem; }
 
-    @media (max-width: 1100px) {
-      nav { display: none; }
-      .hero-grid, .products-head, .gallery, .contact-cards, .mint-grid { grid-template-columns: 1fr; }
-      .gallery-right, .gallery-bottom { grid-template-columns: 1fr; grid-template-rows: auto; }
-      .feature-grid, .stats { grid-template-columns: 1fr; }
-      .image-shell { min-height: 52vh; }
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .card {
+      background: linear-gradient(165deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 1rem;
+    }
+    .card h3 { font-size: clamp(1.2rem, 2vw, 1.75rem); margin-bottom: .5rem; }
+    .muted { color: var(--muted); }
+
+    .list { margin-top: .7rem; padding-left: 1.05rem; display: grid; gap: .28rem; }
+    .list li { color: #e8eaed; }
+
+    .chips { display: flex; flex-wrap: wrap; gap: .55rem; margin-top: .7rem; }
+    .chip {
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: .4rem .7rem;
+      font-size: .86rem;
+      color: #d8dde6;
+      background: rgba(255,255,255,.03);
     }
 
-    @media (max-width: 700px) {
-      .top-inner { height: 66px; }
-      .brand { font-size: 1.4rem; }
-      .logo { width: 32px; }
-      .quote { padding: .65rem 1rem; border-radius: 12px; }
-      .hero-actions { flex-wrap: wrap; }
-      .btn-red, .btn-dark { font-size: 1rem; }
-      .section { padding: 2rem 0; }
-      .mint-bottom { flex-direction: column; align-items: flex-start; }
+    .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: .8rem; }
+    .stat { border: 1px solid var(--line); border-radius: var(--radius); padding: .9rem; background: rgba(255,255,255,.02); }
+    .stat small { color: var(--muted); }
+    .stat strong { display: block; font-size: clamp(2rem, 5vw, 4.2rem); font-weight: 500; line-height: 1; }
+
+    .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .info-grid { display: grid; gap: .8rem; }
+    .info-row { border: 1px solid var(--line); border-radius: 12px; padding: .75rem; background: rgba(255,255,255,.02); }
+    .info-row strong { display: block; margin-bottom: .2rem; }
+
+    form { display: grid; gap: .6rem; }
+    input, textarea {
+      width: 100%;
+      border: 1px solid rgba(255,255,255,.22);
+      background: #0d1116;
+      color: #fff;
+      border-radius: 10px;
+      padding: .72rem;
+      font: inherit;
+    }
+    textarea { min-height: 130px; resize: vertical; }
+
+    .seo { background: rgba(189,0,24,.08); border: 1px solid rgba(255,81,105,.25); }
+
+    footer {
+      margin-top: 1.4rem;
+      background: var(--mint);
+      color: #11241c;
+    }
+    .footer-wrap { padding: clamp(2rem, 4vw, 3rem) 0; }
+    .footer-grid { display: grid; grid-template-columns: 1.3fr 1fr 1fr; gap: 1rem; }
+    .footer-grid h4 { font-size: clamp(1.6rem, 3vw, 3rem); line-height: 1.05; margin-bottom: 1rem; }
+    .footer-list { display: grid; gap: .6rem; font-size: clamp(1.1rem, 2vw, 2rem); font-weight: 700; }
+    .footer-bottom { margin-top: 1.5rem; border-top: 1px solid rgba(17,36,28,.2); padding-top: 1rem; display: flex; justify-content: space-between; gap: 1rem; }
+
+    @media (max-width: 1024px) {
+      .nav-links { display: none; }
+      .hero { min-height: auto; }
+      .hero-grid, .grid-2, .contact-grid, .footer-grid, .stats { grid-template-columns: 1fr; }
+      .hero-image { min-height: 46vh; }
     }
   </style>
 </head>
 <body>
-  <header class="topbar">
-    <div class="container top-inner">
-      <div class="brand"><span class="logo" aria-hidden="true"></span>Norva Exports</div>
-      <nav>
-        <ul>
-          <li><a href="#products">Products</a></li>
-          <li><a href="#about">About</a></li>
-          <li><a href="#blog">Blog</a></li>
-          <li><a href="#contact">Support</a></li>
-        </ul>
-      </nav>
-      <button class="quote">Get Quote</button>
+  <header>
+    <div class="container nav">
+      <div class="logo-wrap"><span class="logo" aria-hidden="true"></span>Trade Bridge</div>
+      <ul class="nav-links">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#products">Products</a></li>
+        <li><a href="#markets">Markets</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+      <button class="quote-btn">Get Quote</button>
     </div>
   </header>
 
@@ -221,96 +185,233 @@
     <section class="hero" id="home">
       <div class="container hero-grid">
         <div>
-          <h1>Connecting global markets, delivering quality</h1>
-          <p>Specialists in food and construction exports. Reliable sourcing, strict standards, and on-time delivery for international buyers.</p>
-          <div class="hero-actions">
-            <button class="btn-red">Get quote</button>
-            <button class="btn-dark">Contact</button>
+          <h1>Bridging Global Trade</h1>
+          <p>Trade Bridge is a trusted global export company specializing in food products and construction materials. We connect quality suppliers with international markets through reliable logistics, competitive pricing, and strict quality control.</p>
+          <p class="muted">👉 Your reliable partner in international trade.</p>
+          <div class="cta-row">
+            <button class="btn primary">Get a Quote</button>
+            <button class="btn">Contact Us</button>
           </div>
         </div>
-        <div class="image-shell"><img src="images/home.jpg" alt="Home hero image" /></div>
+        <div class="hero-image">
+          <img src="images/home.jpg" alt="Trade Bridge hero visual" />
+        </div>
+      </div>
+    </section>
+
+    <section id="intro">
+      <div class="container">
+        <h2 class="section-title">🏢 Business Profile (Short Intro)</h2>
+        <p class="section-intro">Trade Bridge is a global import–export company specializing in high-quality food products and construction materials. We connect reliable suppliers with international buyers, ensuring quality, compliance, and timely delivery.</p>
       </div>
     </section>
 
     <section id="products">
       <div class="container">
-        <div class="products-head">
-          <h2>Global exports, quality delivered</h2>
-          <p>Discover premium food and construction exports. Browse our curated categories for quality, compliance, and global reach. Explore our full range on the products page.</p>
-        </div>
+        <h2 class="section-title">📦 Products We Export</h2>
+        <div class="grid-2">
+          <article class="card">
+            <h3>🍎 Food Products</h3>
+            <p class="muted">We export a wide range of premium-quality food products, sourced from trusted manufacturers and farmers, meeting international standards.</p>
+            <p><strong>✔ Categories:</strong></p>
+            <ul class="list">
+              <li>Rice (Basmati & Non-Basmati)</li>
+              <li>Wheat & Wheat Flour</li>
+              <li>Pulses & Lentils</li>
+              <li>Spices (Whole & Ground)</li>
+              <li>Sugar & Salt</li>
+              <li>Edible Oils</li>
+              <li>Processed & Packaged Foods</li>
+              <li>Dry Fruits & Nuts</li>
+              <li>Fresh Fruits & Vegetables (as per availability)</li>
+            </ul>
+            <p style="margin-top:.7rem;"><strong>✅ Quality Assurance:</strong> All food products are hygienically processed, properly packaged, and comply with international food safety regulations.</p>
+          </article>
 
-        <div class="tabs">
-          <span class="tab active">Food products</span>
-          <span class="tab">Construction materials</span>
-          <span class="tab">All categories</span>
-        </div>
-
-        <div class="gallery">
-          <img src="images/products.jpg" alt="Product category image" />
-          <div class="gallery-right">
-            <img src="images/about.jpg" alt="Construction materials" />
-            <div class="gallery-bottom">
-              <img src="images/contact.jpg" alt="Food market" />
-              <div class="gallery-card" style="display:grid;place-items:center;color:var(--muted);font-size:1.15rem;">Add 4th image if available</div>
-            </div>
-          </div>
+          <article class="card">
+            <h3>🧱 Construction Materials</h3>
+            <p class="muted">We export durable and certified construction items suitable for residential, commercial, and industrial projects.</p>
+            <p><strong>✔ Categories:</strong></p>
+            <ul class="list">
+              <li>Cement</li>
+              <li>Steel & TMT Bars</li>
+              <li>Construction Chemicals</li>
+              <li>Tiles & Marble</li>
+              <li>Granite & Natural Stones</li>
+              <li>Bricks & Blocks</li>
+              <li>Sand & Aggregates</li>
+              <li>Plumbing & Sanitary Items</li>
+              <li>Electrical Construction Materials</li>
+            </ul>
+            <p style="margin-top:.7rem;"><strong>✅ Industry Standards:</strong> Our construction products meet international quality and safety standards, ensuring strength and reliability.</p>
+          </article>
         </div>
       </div>
     </section>
 
     <section id="about">
       <div class="container">
-        <p class="category-title">Our export categories</p>
-        <h2 class="quality-title">Supplying quality. Delivering worldwide.</h2>
-
-        <div class="feature-grid">
-          <article class="feature"><div class="icon">↺</div><h3>Food products</h3><p>Premium rice, pulses, spices, and grains. Sourced for quality and global compliance.</p></article>
-          <article class="feature"><div class="icon">◔</div><h3>Construction materials</h3><p>Certified cement, steel, tiles, and aggregates. Reliable supply for every project.</p></article>
-          <article class="feature"><div class="icon">✉</div><h3>Processed foods</h3><p>Packaged foods, edible oils, dry fruits. Hygienic, safe, and export-ready.</p></article>
-          <article class="feature"><div class="icon">✓</div><h3>Fresh produce</h3><p>Seasonal fruits and vegetables. Selected for export quality and freshness.</p></article>
-          <article class="feature"><div class="icon">♡</div><h3>Industrial supplies</h3><p>Construction chemicals, plumbing, electrical items. Compliant with global standards.</p></article>
-          <article class="feature"><div class="icon">✧</div><h3>Natural stones</h3><p>Granite, marble, and tiles. Durable, high-grade materials for all uses.</p></article>
-        </div>
-
-        <div class="center-cta"><button class="btn-red">Request quote</button></div>
-
-        <p class="stats-kicker">Performance at a glance</p>
-        <h2 class="stats-title">Global trade. Trusted delivery.</h2>
-        <div class="stats">
-          <div><p>Markets served worldwide</p><strong>40+</strong></div>
-          <div><p>On-time shipments</p><strong>98%</strong></div>
-          <div><p>Export experience (years)</p><strong>10+</strong></div>
+        <h2 class="section-title">🏢 About Us</h2>
+        <div class="grid-2">
+          <article class="card">
+            <h3>Who We Are</h3>
+            <p>Trade Bridge is an international import–export company dedicated to delivering high-quality food products and construction materials to global markets. We act as a bridge between manufacturers and buyers worldwide.</p>
+            <h3 style="margin-top:.85rem;">Our Mission</h3>
+            <p>To enable smooth, transparent, and reliable global trade by delivering quality products and exceptional service.</p>
+            <h3 style="margin-top:.85rem;">Our Vision</h3>
+            <p>To become a globally recognized export company known for trust, consistency, and long-term partnerships.</p>
+          </article>
+          <article class="card">
+            <h3>Our Values</h3>
+            <ul class="list">
+              <li>Integrity</li>
+              <li>Quality assurance</li>
+              <li>Customer satisfaction</li>
+              <li>Long-term relationships</li>
+              <li>Ethical business practices</li>
+            </ul>
+            <h3 style="margin-top:.9rem;">🤝 Why Choose Trade Bridge?</h3>
+            <ul class="list">
+              <li>Wide product range</li>
+              <li>Competitive pricing</li>
+              <li>Reliable supply chain</li>
+              <li>International quality standards</li>
+              <li>On-time delivery</li>
+              <li>Transparent communication</li>
+            </ul>
+          </article>
         </div>
       </div>
     </section>
 
-    <section id="contact" class="contact-dark">
+    <section id="services">
       <div class="container">
-        <p class="contact-kicker">Contact</p>
-        <h2 class="contact-title">Let’s talk global trade</h2>
-        <p class="contact-sub">Request quotes or product details. Our team responds fast.</p>
+        <h2 class="section-title">📦 Products & Services</h2>
+        <div class="grid-2">
+          <article class="card">
+            <h3>🍎 Food Products Export</h3>
+            <p>We export a comprehensive range of food products processed and packed under strict hygiene and quality standards.</p>
+            <p style="margin-top:.7rem;"><strong>Packaging Options:</strong></p>
+            <ul class="list">
+              <li>Bulk packaging</li>
+              <li>Custom labeling</li>
+              <li>Buyer-specific requirements</li>
+            </ul>
+            <p style="margin-top:.7rem;"><strong>Compliance:</strong></p>
+            <ul class="list">
+              <li>International food safety standards</li>
+              <li>Proper documentation & certification</li>
+            </ul>
+          </article>
 
-        <div class="contact-cards">
-          <article class="contact-card"><div class="icon">✉</div><h4>Email</h4><p>Send inquiries for a prompt response.</p><a href="#">info@norvaexports.com</a></article>
-          <article class="contact-card"><div class="icon">◔</div><h4>Phone</h4><p>Weekdays, 8am–5pm only.</p><a href="#">+1 (555) 000-0000</a></article>
+          <article class="card">
+            <h3>🧱 Construction Materials Export</h3>
+            <p>We supply durable and high-performance construction materials suitable for residential, commercial, and industrial use.</p>
+            <p style="margin-top:.7rem;"><strong>Key Features:</strong></p>
+            <ul class="list">
+              <li>Tested & certified materials</li>
+              <li>Consistent quality</li>
+              <li>Safe packaging & handling</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="markets">
+      <div class="container">
+        <h2 class="section-title">🌎 Export Markets & Countries</h2>
+        <p class="section-intro">Trade Bridge serves clients across Middle East, Europe, Africa, Asia, and North America. Custom markets are available on request.</p>
+        <div class="chips">
+          <span class="chip">UAE</span><span class="chip">Saudi Arabia</span><span class="chip">UK</span><span class="chip">USA</span><span class="chip">Europe</span><span class="chip">Africa</span><span class="chip">Southeast Asia</span>
+        </div>
+      </div>
+    </section>
+
+    <section id="compliance">
+      <div class="container grid-2">
+        <article class="card">
+          <h3>📑 Certifications & Compliance</h3>
+          <p>We strictly follow international trade regulations and quality standards.</p>
+          <ul class="list">
+            <li>Import Export Code (IEC)</li>
+            <li>GST Registration</li>
+            <li>Quality Assurance Procedures</li>
+            <li>Export Documentation Compliance</li>
+          </ul>
+          <p class="muted" style="margin-top:.7rem;">(Numbers to be added once available)</p>
+        </article>
+
+        <article class="card">
+          <h3>Export Destinations Snapshot</h3>
+          <div class="stats" style="margin-top:.7rem;">
+            <div class="stat"><small>Primary Regions</small><strong>5</strong></div>
+            <div class="stat"><small>Core Product Verticals</small><strong>2</strong></div>
+            <div class="stat"><small>Custom Markets</small><strong>On Request</strong></div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="container">
+        <h2 class="section-title">📞 Contact Us</h2>
+        <p class="section-intro">Looking for a trusted export partner? Contact Trade Bridge today for product inquiries, quotations, and long-term partnerships.</p>
+
+        <div class="contact-grid">
+          <article class="card info-grid">
+            <div class="info-row"><strong>📍 Office Address</strong><span class="muted">(Add your office address)</span></div>
+            <div class="info-row"><strong>📧 Email</strong><span>info@tradebridgeglobal.com</span></div>
+            <div class="info-row"><strong>📱 Phone / WhatsApp</strong><span>+91-XXXXXXXXXX</span></div>
+          </article>
+
+          <article class="card">
+            <h3>Inquiry Form</h3>
+            <form>
+              <input type="text" placeholder="Full Name" />
+              <input type="text" placeholder="Company Name" />
+              <input type="text" placeholder="Country" />
+              <input type="text" placeholder="Product Interested In" />
+              <input type="text" placeholder="Quantity" />
+              <input type="text" placeholder="Contact Number" />
+              <input type="email" placeholder="Email" />
+              <textarea placeholder="Message"></textarea>
+              <button class="btn primary" type="button">Submit Inquiry</button>
+            </form>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container card seo">
+        <h3>🔍 SEO Keywords</h3>
+        <div class="chips">
+          <span class="chip">Food products exporter</span>
+          <span class="chip">Construction materials exporter</span>
+          <span class="chip">Import export company in India</span>
+          <span class="chip">Rice exporter</span>
+          <span class="chip">Building materials exporter</span>
+          <span class="chip">Global trade partner</span>
+          <span class="chip">International export services</span>
         </div>
       </div>
     </section>
   </main>
 
-  <footer class="footer-mint">
-    <div class="container">
-      <div class="mint-grid">
+  <footer>
+    <div class="container footer-wrap">
+      <div class="footer-grid">
         <div>
-          <h3 class="mint-title">Bridging global trade, delivered right Contact us</h3>
-          <p class="mint-contact">+1 555 555 5555<br>info@norvaexports.com</p>
+          <h4>Bridging Global Trade</h4>
+          <p>Trade Bridge helps buyers source quality food products and construction materials with transparent communication and dependable delivery.</p>
         </div>
-        <div class="mint-links"><span>About</span><span>Markets</span><span>Contact</span></div>
-        <div class="mint-links"><span>Products</span><span>Quality</span><span>Quote</span></div>
+        <div class="footer-list"><span>Home</span><span>About</span><span>Products</span><span>Markets</span></div>
+        <div class="footer-list"><span>Contact</span><span>Quote</span><span>Compliance</span><span>Support</span></div>
       </div>
-      <div class="mint-bottom">
-        <span>Support</span>
-        <span>© 2026 Norva Exports. All rights reserved.</span>
+      <div class="footer-bottom">
+        <span>info@tradebridgeglobal.com</span>
+        <span>© 2026 Trade Bridge. All rights reserved.</span>
       </div>
     </div>
   </footer>
