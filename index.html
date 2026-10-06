@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Trade Bridge | Global Food & Construction Exporter</title>
-  <meta name="description" content="Trade Bridge is a global import-export company specializing in premium food products and construction materials with reliable delivery and international compliance." />
+  <title>Novro Exports | Global Food & Construction Exporter</title>
+  <meta name="description" content="Novro Exports is a global import-export company specializing in premium food products and construction materials with reliable delivery and international compliance." />
   <style>
     :root {
       --bg: #07080a;
@@ -19,14 +19,19 @@
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
+    html {
+      scroll-behavior: smooth;
+      background-color: var(--bg);
+    }
     body {
       font-family: Inter, "Segoe UI", Roboto, Arial, sans-serif;
+      background-color: var(--bg);
       background: radial-gradient(circle at 35% -25%, #181e27, var(--bg) 44%);
       color: var(--text);
       line-height: 1.45;
       overflow-x: hidden;
       position: relative;
+      min-height: 100vh;
     }
     body::before {
       content: "";
@@ -38,7 +43,11 @@
         radial-gradient(circle at 12% 78%, rgba(235, 50, 66, .12), transparent 32%);
       filter: blur(4px);
       animation: auraShift 14s ease-in-out infinite alternate;
-      z-index: -1;
+      z-index: 0;
+    }
+    body > * {
+      position: relative;
+      z-index: 1;
     }
 
     .container { width: min(1240px, 94vw); margin-inline: auto; }
@@ -47,6 +56,8 @@
       position: sticky; top: 0; z-index: 50;
       background: linear-gradient(100deg, #7a000e, var(--brand) 52%, var(--brand-2));
       border-bottom: 1px solid rgba(255,255,255,.2);
+      backdrop-filter: blur(8px);
+      animation: navSlideIn .7s ease both;
     }
 
     .nav {
@@ -61,15 +72,108 @@
     .logo { width: 34px; aspect-ratio: 1; border-radius: 8px; background: #fff; position: relative; }
     .logo::before { content: ""; position: absolute; inset: 24%; background: #b20816; transform: rotate(45deg); }
 
+    .imagelogo { width: 118px; height: 68px; object-fit: contain; flex-shrink: 0; }
+    .menu-toggle {
+      display: none;
+      width: 44px;
+      height: 44px;
+      border: 1px solid rgba(255,255,255,.38);
+      border-radius: 10px;
+      background: rgba(255,255,255,.1);
+      color: #fff;
+      cursor: pointer;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 5px;
+    }
+    .menu-toggle span {
+      display: block;
+      width: 18px;
+      height: 2px;
+      border-radius: 99px;
+      background: #fff;
+      transition: transform .25s ease, opacity .2s ease;
+    }
+    .menu-toggle.is-open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .menu-toggle.is-open span:nth-child(2) { opacity: 0; }
+    .menu-toggle.is-open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
     .nav-links { list-style: none; display: flex; gap: clamp(.65rem, 1.8vw, 1.7rem); }
-    .nav-links a { color: #fff; text-decoration: none; font-weight: 600; font-size: .95rem; }
-    .quote-btn { border: 0; border-radius: 12px; background: #fff; color: #111; padding: .72rem 1.1rem; font-weight: 700; }
+    .nav-links a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: .95rem;
+      position: relative;
+      transition: color .25s ease;
+    }
+    .nav-links a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -.3rem;
+      width: 100%;
+      height: 2px;
+      background: rgba(255,255,255,.92);
+      transform: scaleX(0);
+      transform-origin: right;
+      transition: transform .3s ease;
+    }
+    .nav-links a:hover::after {
+      transform: scaleX(1);
+      transform-origin: left;
+    }
+    .quote-btn {
+      border: 0;
+      border-radius: 12px;
+      background: #fff;
+      color: #111;
+      padding: .72rem 1.1rem;
+      font-weight: 700;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      transition: transform .25s ease, box-shadow .3s ease;
+    }
+    .quote-btn::before,
+    .btn::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: -130%;
+      width: 45%;
+      height: 100%;
+      background: linear-gradient(115deg, transparent, rgba(255,255,255,.35), transparent);
+      transform: skewX(-20deg);
+      transition: left .65s ease;
+    }
 
     section { padding: clamp(2.4rem, 5vw, 5rem) 0; }
 
     .hero { min-height: min(92vh, 900px); display: grid; align-items: center; }
-    .hero-grid { display: grid; grid-template-columns: 1fr 1.08fr; gap: 1rem; align-items: center; }
-    h1 { font-size: clamp(2.2rem, 6.5vw, 6.4rem); line-height: .92; letter-spacing: -.045em; max-width: 8.8ch; }
+    .hero-grid { display: grid; grid-template-columns: 1fr 1.08fr; gap: 1rem; align-items: start; }
+
+    h1 { font-size: clamp(1.6rem, 4vw, 3.6rem); line-height: .96; letter-spacing: -.03em; max-width: none; white-space: nowrap; }
+    .hero-heading {
+      display: inline-block;
+      position: relative;
+      max-width: none;
+      padding-bottom: .26rem;
+    }
+    .hero-heading::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: min(95%, 360px);
+      height: 4px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, #ff6f84, rgba(255,111,132,0));
+    }
     .hero p { margin-top: 1rem; color: var(--muted); max-width: 42ch; }
     .cta-row { display: flex; flex-wrap: wrap; gap: .7rem; margin-top: 1.4rem; }
 
@@ -81,8 +185,23 @@
       font-weight: 700;
       padding: .78rem 1.12rem;
       font-size: .95rem;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      transition: transform .25s ease, box-shadow .3s ease, border-color .25s ease;
     }
     .btn.primary { border-color: transparent; background: var(--brand); }
+    .btn:hover,
+    .quote-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 24px rgba(0,0,0,.28);
+    }
+    .btn:hover::before,
+    .quote-btn:hover::before { left: 160%; }
 
     .hero-image,
     .img-box {
@@ -91,8 +210,13 @@
       overflow: hidden;
       background: var(--surface);
     }
-    .hero-image { min-height: min(68vh, 660px); }
-    .hero-image { position: relative; box-shadow: 0 28px 80px rgba(0,0,0,.45); }
+    .hero-image { min-height: 0; aspect-ratio: 16 / 10; }
+    .hero-image {
+      position: relative;
+      border: 0;
+      background: transparent;
+      box-shadow: none;
+    }
     .hero-image::after {
       content: "";
       position: absolute;
@@ -124,17 +248,104 @@
       font-size: .82rem;
       color: #e7ecf3;
       backdrop-filter: blur(2px);
+      animation: badgeFloat 5.5s ease-in-out infinite;
     }
+    .hero-badge:nth-child(2) { animation-delay: .35s; }
+    .hero-badge:nth-child(3) { animation-delay: .7s; }
 
     .section-title { font-size: clamp(1.8rem, 4vw, 3.6rem); line-height: .96; letter-spacing: -.03em; margin-bottom: .8rem; }
     .section-intro { color: var(--muted); max-width: 80ch; margin-bottom: 1.2rem; }
 
-    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .grid-2 { display: grid; grid-template-columns: 1fr; gap: 1rem; }
     .card {
       border: 1px solid var(--line);
       border-radius: var(--radius);
       background: linear-gradient(165deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
       padding: 1rem;
+    }
+    .card h3 { margin-bottom: .5rem; }
+    .card,
+    .product-card,
+    .stat,
+    .chip,
+    .info-row,
+    .kpi-card,
+    .cert-item,
+    .compliance-timeline li {
+      transition: transform .28s ease, border-color .28s ease, box-shadow .28s ease, background .28s ease;
+    }
+    .card:hover,
+    .stat:hover,
+    .info-row:hover,
+    .kpi-card:hover,
+    .cert-item:hover,
+    .compliance-timeline li:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 14px 26px rgba(0,0,0,.25);
+      border-color: rgba(235,50,66,.45);
+    }
+    .chip:hover {
+      transform: translateY(-3px);
+      border-color: rgba(235,50,66,.55);
+      background: rgba(235,50,66,.12);
+    }
+    .section-kpis {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: .75rem;
+      margin-top: .85rem;
+    }
+    .kpi-card {
+      border: 1px solid rgba(235,50,66,.3);
+      border-radius: 12px;
+      background: linear-gradient(145deg, rgba(189,0,24,.18), rgba(255,255,255,.03));
+      padding: .8rem;
+    }
+    .kpi-card strong {
+      display: block;
+      font-size: clamp(1.15rem, 2.5vw, 1.65rem);
+      line-height: 1.1;
+      margin-bottom: .25rem;
+    }
+    .kpi-card span { color: #f3d8dc; font-size: .9rem; }
+    .visual-list {
+      list-style: none;
+      margin-top: .55rem;
+      display: grid;
+      gap: .5rem;
+    }
+    .visual-list li {
+      border: 1px solid rgba(255,255,255,.14);
+      border-radius: 10px;
+      background: rgba(255,255,255,.03);
+      padding: .55rem .65rem;
+      display: flex;
+      align-items: flex-start;
+      gap: .5rem;
+    }
+    .visual-list li::before {
+      content: "◆";
+      color: #ff6b7c;
+      line-height: 1.1;
+      margin-top: .05rem;
+      flex-shrink: 0;
+    }
+    .split-highlight {
+      margin-top: .9rem;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: .75rem;
+    }
+    .split-highlight article {
+      border: 1px solid rgba(255,255,255,.13);
+      border-radius: 12px;
+      background: rgba(255,255,255,.02);
+      padding: .8rem;
+    }
+    .split-highlight h4 {
+      font-size: 1rem;
+      margin-bottom: .35rem;
+      color: #ffd3d8;
     }
 
     .product-card {
@@ -168,6 +379,69 @@
     .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
     .info-row { border: 1px solid var(--line); border-radius: 10px; padding: .72rem; background: rgba(255,255,255,.02); margin-bottom: .55rem; }
 
+    .founder-wrap {
+      border: 1px solid rgba(235,50,66,.35);
+      border-radius: calc(var(--radius) + 2px);
+      background: linear-gradient(150deg, rgba(15,19,24,.96), rgba(24,8,11,.92));
+      padding: clamp(1rem, 2.4vw, 1.7rem);
+      display: grid;
+      grid-template-columns: 170px 1fr;
+      gap: 1rem;
+      align-items: start;
+    }
+    .founder-avatar {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      border: 3px solid rgba(235,50,66,.45);
+      overflow: hidden;
+      box-shadow: 0 12px 28px rgba(0,0,0,.32);
+    }
+    .founder-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 22%;
+      display: block;
+    }
+    .founder-title {
+      font-size: clamp(1.45rem, 3.5vw, 2.3rem);
+      margin-bottom: .24rem;
+      line-height: 1.1;
+    }
+    .founder-role {
+      color: #ffd3d8;
+      font-weight: 700;
+      margin-bottom: .9rem;
+    }
+    .founder-bio {
+      color: #dee4ed;
+      display: grid;
+      gap: .8rem;
+      max-width: 82ch;
+    }
+    .founder-focus {
+      margin-top: .85rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: .5rem;
+    }
+    .founder-focus span {
+      border: 1px solid rgba(255,255,255,.18);
+      border-radius: 999px;
+      padding: .3rem .65rem;
+      background: rgba(255,255,255,.04);
+      font-size: .82rem;
+      color: #ffe7ea;
+    }
+
+    .founders-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: clamp(.85rem, 2vw, 1.25rem);
+      align-items: stretch;
+    }
+
     form { display: grid; gap: .58rem; }
     input, textarea {
       width: 100%;
@@ -181,21 +455,103 @@
     textarea { min-height: 120px; resize: vertical; }
 
     .seo { background: rgba(189,0,24,.08); border-color: rgba(255,85,110,.3); }
+    .compliance-grid {
+      display: grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap: 1rem;
+      align-items: stretch;
+    }
+    .compliance-card {
+      border: 1px solid rgba(255,255,255,.14);
+      border-radius: var(--radius);
+      background: linear-gradient(165deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
+      padding: 1rem;
+    }
+    .compliance-card h3 { margin-bottom: .7rem; }
+    .cert-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: .7rem;
+    }
+    .cert-item {
+      border: 1px solid rgba(235,50,66,.32);
+      border-radius: 12px;
+      background: linear-gradient(145deg, rgba(189,0,24,.17), rgba(255,255,255,.02));
+      padding: .7rem;
+    }
+    .cert-item strong {
+      display: block;
+      font-size: .95rem;
+      margin-bottom: .25rem;
+    }
+    .cert-item span {
+      color: #e1e7f0;
+      font-size: .84rem;
+      line-height: 1.4;
+    }
+    .compliance-timeline {
+      list-style: none;
+      display: grid;
+      gap: .55rem;
+      counter-reset: step;
+    }
+    .compliance-timeline li {
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: 10px;
+      background: rgba(255,255,255,.02);
+      padding: .6rem .7rem .6rem 2.15rem;
+      position: relative;
+      color: #e6ebf3;
+    }
+    .compliance-timeline li::before {
+      counter-increment: step;
+      content: counter(step);
+      position: absolute;
+      left: .62rem;
+      top: .54rem;
+      width: 1.05rem;
+      height: 1.05rem;
+      border-radius: 50%;
+      background: var(--brand);
+      color: #fff;
+      font-size: .73rem;
+      font-weight: 700;
+      display: grid;
+      place-items: center;
+    }
+    .trust-note {
+      margin-top: .7rem;
+      border: 1px dashed rgba(255,255,255,.23);
+      border-radius: 10px;
+      background: rgba(255,255,255,.03);
+      padding: .7rem;
+      color: #d6dde8;
+      font-size: .9rem;
+    }
 
     footer { margin-top: 1.4rem; background: var(--mint); color: #12261d; }
     .footer-wrap { padding: clamp(2rem, 4.2vw, 3rem) 0; }
     .footer-grid { display: grid; grid-template-columns: 1.3fr 1fr 1fr; gap: 1rem; }
     .footer-grid h4 { font-size: clamp(1.5rem, 3vw, 2.8rem); line-height: 1.06; margin-bottom: .9rem; }
+
     .footer-list { display: grid; gap: .55rem; font-size: clamp(1.05rem, 2vw, 1.9rem); font-weight: 700; }
+    .footer-list a { color: inherit; text-decoration: none; }
+    .footer-list a { transition: transform .25s ease, opacity .25s ease; }
+    .footer-list a:hover { transform: translateX(4px); opacity: .88; }
     .footer-bottom { margin-top: 1.4rem; padding-top: 1rem; border-top: 1px solid rgba(18,38,29,.25); display: flex; justify-content: space-between; gap: 1rem; }
 
     /* Animation */
     .reveal {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .js .reveal {
       opacity: 0;
       transform: translateY(22px);
       transition: opacity .7s ease, transform .7s ease;
+      transition-delay: var(--delay, 0ms);
     }
-    .reveal.visible {
+    .js .reveal.visible {
       opacity: 1;
       transform: translateY(0);
     }
@@ -205,15 +561,30 @@
       border: 1px solid var(--line);
       border-radius: var(--radius);
       overflow: hidden;
-      min-height: 260px;
+      height: clamp(180px, 30vw, 300px);
+      max-width: 100%;
+      margin-inline: auto;
       transform: translateZ(0);
       will-change: transform;
     }
-    .parallax-media img { transition: transform .2s linear; }
+    .parallax-media img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform .2s linear;
+    }
 
     @keyframes auraShift {
       0% { transform: translate3d(0, 0, 0) scale(1); }
       100% { transform: translate3d(-2%, 2%, 0) scale(1.06); }
+    }
+    @keyframes navSlideIn {
+      from { opacity: 0; transform: translateY(-14px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes badgeFloat {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-5px); }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -221,26 +592,95 @@
     }
 
     @media (max-width: 1024px) {
-      .nav-links { display: none; }
+      .nav { position: relative; }
+      .menu-toggle { display: inline-flex; }
+      .nav-links {
+        display: none;
+        position: absolute;
+        top: calc(100% + 8px);
+        right: 0;
+        width: min(260px, 78vw);
+        padding: .9rem;
+        border-radius: 12px;
+        border: 1px solid rgba(255,255,255,.22);
+        background: rgba(20,23,29,.98);
+        box-shadow: 0 16px 34px rgba(0,0,0,.28);
+        flex-direction: column;
+        gap: .7rem;
+        z-index: 70;
+      }
+      .nav-links.nav-open { display: flex; }
       .hero { min-height: auto; }
       .hero-grid, .grid-2, .contact-grid, .footer-grid, .stats { grid-template-columns: 1fr; }
-      .hero-image { min-height: 44vh; }
+      .hero-image { min-height: 0; aspect-ratio: 16 / 10; }
       .product-card { grid-template-rows: 220px auto; }
+      .founders-row { grid-template-columns: 1fr; }
+      .founder-wrap { grid-template-columns: 1fr; }
+      .founder-avatar { margin: 0 auto; }
+      .footer-bottom { flex-direction: column; align-items: flex-start; }
+      .section-kpis,
+      .split-highlight { grid-template-columns: 1fr; }
+      .compliance-grid { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 768px) {
+      .container { width: min(1240px, 92vw); }
+      .nav { min-height: 64px; gap: .5rem; }
+      .logo-wrap { font-size: 1rem; gap: .45rem; }
+      .imagelogo { width: 92px; height: 54px; }
+      .quote-btn { display: none; }
+      section { padding: clamp(1.7rem, 8vw, 2.6rem) 0; }
+      .hero-grid { gap: 1.1rem; }
+      .hero-image { min-height: 0; aspect-ratio: 16 / 10; border-radius: 10px; }
+      .section-title { margin-bottom: .55rem; }
+      .section-intro { margin-bottom: .95rem; }
+      .product-card { grid-template-rows: 200px auto; }
+      .stats { gap: .6rem; }
+      .founder-wrap { padding: 1rem; }
+      .founder-avatar { width: 130px; height: 130px; }
+      .parallax-media { height: 200px; }
+    }
+
+    @media (max-width: 560px) {
+      h1 { font-size: clamp(1.55rem, 9.2vw, 2.15rem); }
+      
+      .hero-heading::after { height: 3px; }
+      .hero p { max-width: 100%; font-size: .95rem; }
+      .hero-badges { gap: .45rem; }
+      .hero-badge { font-size: .74rem; padding: .32rem .58rem; }
+      .cta-row .btn { width: 100%; text-align: center; }
+      .card, .product-content { padding: .85rem; }
+      .list { padding-left: 1rem; }
+      .stat strong { font-size: clamp(1.7rem, 9vw, 2.4rem); }
+      .founder-title { font-size: 1.35rem; }
+      .founder-role { font-size: .93rem; }
+      .founder-bio { font-size: .95rem; }
+      .parallax-media { height: 170px; }
+      .kpi-card { padding: .7rem; }
+      .visual-list li { font-size: .93rem; }
+      .cert-grid { grid-template-columns: 1fr; }
+      .compliance-card { padding: .85rem; }
     }
   </style>
 </head>
 <body>
+  <script>document.documentElement.classList.add('js');</script>
   <header>
     <div class="container nav">
-      <div class="logo-wrap"><span class="logo" aria-hidden="true"></span>Trade Bridge</div>
-      <ul class="nav-links">
+      <div class="logo-wrap"><img class="imagelogo" src="images/logo.png" alt="Novro Exports logo" />Novro Exports</div>
+      <button class="menu-toggle" id="menuToggle" type="button" aria-label="Toggle menu" aria-expanded="false" aria-controls="navLinks">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      <ul class="nav-links" id="navLinks">
         <li><a href="#home">Home</a></li>
         <li><a href="#about">About</a></li>
         <li><a href="#products">Products</a></li>
         <li><a href="#markets">Markets</a></li>
         <li><a href="#contact">Contact</a></li>
       </ul>
-      <button class="quote-btn">Get Quote</button>
+      <a class="quote-btn" href="#contactForm">Get Quote</a>
     </div>
   </header>
 
@@ -248,8 +688,8 @@
     <section class="hero" id="home">
       <div class="container hero-grid reveal">
         <div>
-          <h1>Bridging Global Trade</h1>
-          <p>Trade Bridge is a trusted global export company specializing in food products and construction materials. We connect quality suppliers with international markets through reliable logistics, competitive pricing, and strict quality control.</p>
+          <h1 class="hero-heading">Bridging Global Trade</h1>
+          <p>Novro Exports is a trusted global export company specializing in food products and construction materials. We connect quality suppliers with international markets through reliable logistics, competitive pricing, and strict quality control.</p>
           <p style="color:var(--muted);margin-top:.65rem;">👉 Your reliable partner in international trade.</p>
           <div class="hero-badges">
             <span class="hero-badge">Global Logistics Network</span>
@@ -257,8 +697,8 @@
             <span class="hero-badge">Fast Quote Turnaround</span>
           </div>
           <div class="cta-row">
-            <button class="btn primary">Get a Quote</button>
-            <button class="btn">Contact Us</button>
+            <a class="btn primary" href="#contactForm">Get a Quote</a>
+            <a class="btn" href="#contact">Contact Us</a>
           </div>
         </div>
         <div class="hero-image">
@@ -270,24 +710,41 @@
     <section id="about">
       <div class="container reveal">
         <h2 class="section-title">🏢 Business Profile</h2>
-        <p class="section-intro">Trade Bridge is a global import–export company specializing in high-quality food products and construction materials. We connect reliable suppliers with international buyers, ensuring quality, compliance, and timely delivery.</p>
+        <p class="section-intro">Novro Exports is a global import–export company specializing in high-quality food products and construction materials. We connect reliable suppliers with international buyers, ensuring quality, compliance, and timely delivery.</p>
         <div class="grid-2">
           <article class="card">
             <h3>Who We Are</h3>
             <p>We act as a bridge between manufacturers and buyers worldwide with transparent communication and dependable execution.</p>
-            <h3 style="margin-top:.8rem;">Our Mission</h3>
-            <p>To enable smooth, transparent, and reliable global trade by delivering quality products and exceptional service.</p>
-            <h3 style="margin-top:.8rem;">Our Vision</h3>
-            <p>To become a globally recognized export company known for trust, consistency, and long-term partnerships.</p>
+            <div class="split-highlight">
+              <article>
+                <h4>Our Mission</h4>
+                <p>Enable smooth, transparent, and reliable global trade through quality products and exceptional service.</p>
+              </article>
+              <article>
+                <h4>Our Vision</h4>
+                <p>Become a globally recognized export brand known for trust, consistency, and long-term partnerships.</p>
+              </article>
+            </div>
+            <div class="section-kpis">
+              <div class="kpi-card"><strong>3+</strong><span>Export Categories</span></div>
+              <div class="kpi-card"><strong>20+</strong><span>Supplier Network</span></div>
+              <div class="kpi-card"><strong>100%</strong><span>Compliance Focus</span></div>
+            </div>
           </article>
           <article class="card">
             <h3>Our Values</h3>
-            <ul class="list">
-              <li>Integrity</li><li>Quality assurance</li><li>Customer satisfaction</li><li>Long-term relationships</li><li>Ethical business practices</li>
+            <ul class="visual-list">
+              <li>Integrity in sourcing, communication, and commitments.</li>
+              <li>Strong quality assurance from supplier selection to dispatch.</li>
+              <li>Customer-first execution with predictable deliveries.</li>
+              <li>Long-term partnerships with ethical business practices.</li>
             </ul>
-            <h3 style="margin-top:.85rem;">🤝 Why Choose Trade Bridge?</h3>
-            <ul class="list">
-              <li>Wide product range</li><li>Competitive pricing</li><li>Reliable supply chain</li><li>International quality standards</li><li>On-time delivery</li><li>Transparent communication</li>
+            <h3 style="margin-top:.85rem;">Why Choose Novro Exports?</h3>
+            <ul class="visual-list">
+              <li>Wide product range with flexible export combinations.</li>
+              <li>Competitive pricing backed by efficient sourcing.</li>
+              <li>Reliable supply chain with transparent communication.</li>
+              <li>International quality standards and on-time execution.</li>
             </ul>
           </article>
         </div>
@@ -334,7 +791,7 @@
     <section id="markets">
       <div class="container reveal">
         <h2 class="section-title">🌎 Export Markets</h2>
-        <p class="section-intro">Trade Bridge serves clients across Middle East, Europe, Africa, Asia, and North America. Customizable based on demand.</p>
+        <p class="section-intro">Novro Exports serves clients across Middle East, Europe, Africa, Asia, and North America. Customizable based on demand.</p>
         <div class="chips">
           <span class="chip">Middle East</span><span class="chip">Europe</span><span class="chip">Africa</span><span class="chip">Asia</span><span class="chip">North America</span><span class="chip">UAE</span><span class="chip">Saudi Arabia</span><span class="chip">UK</span><span class="chip">USA</span>
         </div>
@@ -350,51 +807,124 @@
     </section>
 
     <section id="compliance">
-      <div class="container reveal grid-2">
-        <article class="card">
-          <h3>📑 Certifications & Compliance</h3>
-          <ul class="list">
-            <li>Import Export Code (IEC)</li><li>GST Registration</li><li>Quality Assurance Procedures</li><li>Export Documentation Compliance</li>
-          </ul>
-          <p style="margin-top:.65rem;color:var(--muted);">(Numbers to be added once available)</p>
-        </article>
-        <article class="card seo">
-          <h3>🔍 SEO Keywords</h3>
-          <div class="chips">
-            <span class="chip">Food products exporter</span><span class="chip">Construction materials exporter</span><span class="chip">Import export company in India</span><span class="chip">Rice exporter</span><span class="chip">Building materials exporter</span><span class="chip">Global trade partner</span><span class="chip">International export services</span>
-          </div>
-        </article>
+      <div class="container reveal">
+        <h2 class="section-title">📑 Certifications &amp; Compliance</h2>
+        <p class="section-intro">We follow structured compliance controls so every shipment is legally aligned, quality-checked, and document-ready for international trade.</p>
+        <div class="compliance-grid">
+          <article class="compliance-card">
+            <h3>Compliance Credentials</h3>
+            <div class="cert-grid">
+              <div class="cert-item">
+                <strong>Import Export Code (IEC)</strong>
+                <span>Authorized for global export operations and cross-border transactions.</span>
+              </div>
+              <div class="cert-item">
+                <strong>GST Registration</strong>
+                <span>Tax-compliant trade operations with transparent documentation flow.</span>
+              </div>
+              <div class="cert-item">
+                <strong>Quality Assurance SOPs</strong>
+                <span>Internal quality checks for product selection, packing, and dispatch.</span>
+              </div>
+              <div class="cert-item">
+                <strong>Export Documentation</strong>
+                <span>Accurate invoice, packing list, and shipping paperwork compliance.</span>
+              </div>
+            </div>
+            <p class="trust-note"><strong>Trust Signal:</strong> Every consignment is processed with traceability, documentation discipline, and market-specific compliance checks.</p>
+          </article>
+
+          <article class="compliance-card">
+            <h3>Shipment Compliance Flow</h3>
+            <ol class="compliance-timeline">
+              <li>Supplier and product-level quality verification.</li>
+              <li>Country-specific documentation and commercial checks.</li>
+              <li>Packing, labeling, and pre-dispatch inspection controls.</li>
+              <li>Final export documentation review before shipment release.</li>
+            </ol>
+          </article>
+        </div>
       </div>
     </section>
 
     <section id="contact">
       <div class="container reveal">
         <h2 class="section-title">📞 Contact Us</h2>
-        <p class="section-intro">Looking for a trusted export partner? Contact Trade Bridge today for product inquiries, quotations, and long-term partnerships.</p>
+        <p class="section-intro">Looking for a trusted export partner? Contact Novro Exports today for product inquiries, quotations, and long-term partnerships.</p>
         <div class="contact-grid">
           <article class="card">
-            <div class="info-row"><strong>📍 Office Address</strong><span>(Add your office address)</span></div>
-            <div class="info-row"><strong>📧 Email</strong><span>info@tradebridgeglobal.com</span></div>
-            <div class="info-row"><strong>📱 Phone / WhatsApp</strong><span>+91-XXXXXXXXXX</span></div>
+            <div class="info-row"><strong>📍 </strong><span> 611 vastra nilaya, 4th main road, madavara Bengaluru. 
+</span></div>
+            <div class="info-row"><strong>📧 </strong><span> novroexportssupport@gmail.com</span></div>
+            <div class="info-row"><strong>📱 </strong><span> +91-9606219556</span></div>
           </article>
 
           <article class="card">
             <h3>Inquiry Form</h3>
-            <form>
-              <input type="text" placeholder="Full Name" />
-              <input type="text" placeholder="Company Name" />
-              <input type="text" placeholder="Country" />
-              <input type="text" placeholder="Product Interested In" />
-              <input type="text" placeholder="Quantity" />
-              <input type="text" placeholder="Contact Number" />
-              <input type="email" placeholder="Email" />
-              <textarea placeholder="Message"></textarea>
-              <button class="btn primary" type="button">Submit Inquiry</button>
+            <form id="contactForm">
+              <input type="text" id="name" placeholder="Full Name" />
+              <input type="text" id="country" placeholder="Country" />
+              <input type="text" id="phone" placeholder="Contact Number" />
+              <input type="email" id="email" placeholder="Email" />
+              <textarea id="message" placeholder="Message"></textarea>
+              <button class="btn primary" id="submit" type="submit">Submit Inquiry</button>
             </form>
           </article>
         </div>
       </div>
     </section>
+
+    <section id="founder">
+      <div class="container reveal">
+        <h2 class="section-title">Our Founder's Vision</h2>
+        <p class="section-intro">A data-driven leadership approach that combines analytics, market intelligence, and operational discipline to scale global exports.</p>
+        <div class="founders-row">
+          <article class="founder-wrap">
+            <div class="founder-avatar">
+              <img src="images/founder.jpeg" alt="Founder and CEO of Novro Exports" loading="lazy" />
+            </div>
+            <div>
+              <h3 class="founder-title">Jayanth Reddy</h3>
+              <p class="founder-role">Founder &amp; CEO, Novro Exports Private Limited</p>
+              <div class="founder-bio">
+                <p>I am the Founder &amp; CEO of Novro Exports Private Limited, a global export company specializing in textiles, construction materials, agricultural goods, and machinery across markets in Europe, the Middle East, and Asia.</p>
+                <p>With an MSc in Business Analytics and Finance, I lead the company with a data-driven approach, leveraging market intelligence, demand forecasting, and supply chain optimization to ensure efficient and reliable international trade operations.</p>
+                <p>At Novro Exports, our mission is to deliver high-quality products with a strong focus on sustainability, cost-efficiency, and long-term value creation. We are committed to building trusted global partnerships and providing seamless export solutions that meet the evolving demands of international markets.</p>
+              </div>
+              <div class="founder-focus">
+                <span>Market Intelligence</span>
+                <span>Demand Forecasting</span>
+                <span>Supply Chain Optimization</span>
+                <span>Sustainable Trade</span>
+                <span>Global Partnerships</span>
+              </div>
+            </div>
+          </article>
+          <article class="founder-wrap">
+            <div class="founder-avatar">
+              <img src="images/cofounder.jpeg" alt="Co-Founder of Novro Exports" loading="lazy" />
+            </div>
+            <div>
+              <h3 class="founder-title">Hariprasad</h3>
+              <p class="founder-role">Co-Founder, Novro Exports Private Limited</p>
+              <div class="founder-bio">
+                <p>Hariprasad is the Co-Founder of Novro Exports Private Limited, focusing on international trade operations and global partnerships. He plays a key role in managing business growth, supplier networks, and ensuring efficient import–export processes.</p>
+                <p>At Novro Exports Private Limited, Hariprasad is actively involved in overseeing day-to-day operations, managing international collaborations, and ensuring smooth import and export processes. He is dedicated to maintaining high standards of quality, efficiency, and customer satisfaction.</p>
+                <p>Hariprasad's vision is to expand the company's global footprint while creating sustainable and long-term business relationships across international markets.</p>
+              </div>
+              <div class="founder-focus">
+                <span>International Trade</span>
+                <span>Global Partnerships</span>
+                <span>Supplier Networks</span>
+                <span>Import &amp; Export</span>
+                <span>Operational Excellence</span>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+    
   </main>
 
   <footer>
@@ -402,26 +932,34 @@
       <div class="footer-grid">
         <div>
           <h4>Bridging Global Trade</h4>
-          <p>Trade Bridge helps buyers source quality food products and construction materials with transparent communication and dependable delivery.</p>
+          <p>Novro Exports helps buyers source quality food products and construction materials with transparent communication and dependable delivery.</p>
         </div>
-        <div class="footer-list"><span>Home</span><span>About</span><span>Products</span><span>Markets</span></div>
-        <div class="footer-list"><span>Contact</span><span>Quote</span><span>Compliance</span><span>Support</span></div>
+        <div class="footer-list"><a href="#home">Home</a><a href="#about">About</a><a href="#products">Products</a></div>
+        <div class="footer-list"><a href="#markets">Markets</a><a href="#contact">Contact</a><a href="#contactForm">Quote</a></div>
       </div>
       <div class="footer-bottom">
-        <span>info@tradebridgeglobal.com</span>
-        <span>© 2026 Trade Bridge. All rights reserved.</span>
+        <span>novroexportssupport@gmail.com</span>
+        <span>© 2026 Novro Exports. All rights reserved.</span>
       </div>
     </div>
   </footer>
-
+<script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
   <script>
+    AOS.init({
+  duration: 1000,
+  once: true
+});
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) entry.target.classList.add('visible');
       });
     }, { threshold: 0.16 });
 
-    document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
+    document.querySelectorAll('.reveal').forEach((el, index) => {
+      el.style.setProperty('--delay', `${Math.min(index * 80, 320)}ms`);
+      observer.observe(el);
+    });
 
     const parallaxMedia = document.querySelector('.parallax-media img');
     if (parallaxMedia) {
@@ -430,6 +968,63 @@
         parallaxMedia.style.transform = `translateY(${Math.min(20, y)}px) scale(1.06)`;
       }, { passive: true });
     }
+
+    const menuToggle = document.getElementById('menuToggle');
+    const navLinks = document.getElementById('navLinks');
+    if (menuToggle && navLinks) {
+      const closeNavMenu = () => {
+        navLinks.classList.remove('nav-open');
+        menuToggle.classList.remove('is-open');
+        menuToggle.setAttribute('aria-expanded', 'false');
+      };
+
+      menuToggle.addEventListener('click', () => {
+        const isOpen = navLinks.classList.toggle('nav-open');
+        menuToggle.classList.toggle('is-open', isOpen);
+        menuToggle.setAttribute('aria-expanded', String(isOpen));
+      });
+
+      navLinks.querySelectorAll('a').forEach((link) => {
+        link.addEventListener('click', closeNavMenu);
+      });
+
+      window.addEventListener('resize', () => {
+        if (window.innerWidth > 1024) closeNavMenu();
+      });
+    }
+
+    emailjs.init("y1CSOuVirZMwcwfgh"); // Replace with your actual public key
+
+// Handle form submission
+const contactForm = document.getElementById('contactForm');
+if (contactForm) {
+  contactForm.addEventListener('submit', function(event) {
+    event.preventDefault(); // Prevent default form submission
+
+    const serviceID = 'service_io8uaw4'; // Replace with your EmailJS service ID
+    const templateID = 'template_k2hvy1e'; // Replace with your EmailJS template ID
+
+    const templateParams = {
+      name: document.getElementById('name').value,
+      email: document.getElementById('email').value,
+      country: document.getElementById('country').value,
+      message: document.getElementById('message').value,
+      phone:document.getElementById('phone').value,
+      title: document.getElementById('message').value,
+      to_email: 'novroexportssupport@gmail.com' // Recipient email
+    };
+
+
+    emailjs.send(serviceID, templateID, templateParams)
+      .then(function(response) {
+        alert('Your inquiry has been sent successfully!');
+        contactForm.reset();
+      }, function(error) {
+        alert('Failed to send your inquiry. Please try again later.');
+      });
+  });
+}
+
   </script>
 </body>
 </html>
